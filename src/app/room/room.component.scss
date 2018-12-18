@@ -1,0 +1,138 @@
+body {
+  width: 1024px;
+  background: white;
+  margin: 2em auto 0;
+}
+
+.reservation-details-container {
+  margin: 50px 20px;
+  padding: 2em 1.5em;
+  transition: .4s width;
+
+  -webkit-box-shadow: -1px 3px 43px -9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 3px 43px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 3px 43px -9px rgba(0, 0, 0, 0.75);
+
+  //Gradient
+  background: rgb(252, 254, 255);
+  background: -moz-linear-gradient(left, rgba(252, 254, 255, 1) 85%, rgba(215, 228, 234, 1) 93%, rgba(179, 215, 229, 1) 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(85%, rgba(252, 254, 255, 1)), color-stop(93%, rgba(215, 228, 234, 1)), color-stop(100%, rgba(179, 215, 229, 1)));
+  background: -webkit-linear-gradient(left, rgba(252, 254, 255, 1) 85%, rgba(215, 228, 234, 1) 93%, rgba(179, 215, 229, 1) 100%);
+  background: -o-linear-gradient(left, rgba(252, 254, 255, 1) 85%, rgba(215, 228, 234, 1) 93%, rgba(179, 215, 229, 1) 100%);
+  background: -ms-linear-gradient(left, rgba(252, 254, 255, 1) 85%, rgba(215, 228, 234, 1) 93%, rgba(179, 215, 229, 1) 100%);
+  background: linear-gradient(to right, rgba(252, 254, 255, 1) 85%, rgba(215, 228, 234, 1) 93%, rgba(179, 215, 229, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfeff', endColorstr='#b3d7e5', GradientType=1);
+
+  &.check-in {
+    width: 100%;
+  }
+
+  .room-reservation {
+    display: flex;
+    flex-wrap: wrap;
+
+    .room-type {
+      min-width: 10em;
+      padding-right: 1.5em;
+
+      .room-name {
+        letter-spacing: 3px;
+        font-weight: bolder;
+        font-size: 1.5em;
+        text-transform: uppercase;
+      }
+
+      .room-status {
+        margin-top: .5em;
+        padding: .3em .3em;
+        display: flex;
+        position: relative;
+        height: 2.5em;
+        min-width: 15em;
+        line-height: 1em;
+        font-weight: bold;
+        font-size: 1.2em;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: #fff;
+
+        p {
+          margin: auto;
+          text-align: center;
+        }
+      }
+
+      .room-free {
+        background-color: limegreen;
+      }
+
+      .room-occupied {
+        background-color: orangered;
+      }
+    }
+
+    .room-detail-container {
+      flex-direction: row;
+      align-items: center;
+
+      border-right: 1px solid rgba(0, 0, 0, 0.09);
+      border-left: 1px solid rgba(0, 0, 0, 0.09);
+
+      .room-detail-info {
+        margin: 0.5em 1em 0;
+        font-size: 1.3em;
+      }
+    }
+
+    .room-assign {
+      cursor: pointer;
+      float: left;
+      text-align: center;
+      font-weight: bolder;
+      font-size: 2em;
+      line-height: 2em;
+      color: #00357f;
+    }
+
+    //Check-in
+    .room-check-in {
+      transition: .4s all;
+      position: relative;
+
+      .room-status-info {
+        line-height: 2em;
+        margin: 1em 1em;
+      }
+
+      .room-check-in-label {
+        padding-left: 1em;
+        margin-left: 1em;
+
+        .room-check-in-text {
+          text-align: center;
+          font-weight: bolder;
+          font-size: 2em;
+          line-height: 2em;
+          color: #00357f;
+        }
+      }
+    }
+  }
+}
+
+.room-actions {
+  float: right;
+  margin-right: -20px;
+  margin-top: 3em;
+
+  ul {
+    list-style: none;
+
+    li {
+      display: inline;
+      text-decoration: underline;
+      margin: 0 2px;
+    }
+  }
+}

@@ -1,0 +1,98 @@
+body {
+  width: 1024px;
+  background: white;
+  margin: 2em auto 0; }
+
+.reservation-details-container {
+  margin: 50px 20px;
+  padding: 2em 1.5em;
+  transition: .4s width;
+  -webkit-box-shadow: -1px 3px 43px -9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 3px 43px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 3px 43px -9px rgba(0, 0, 0, 0.75);
+  background: #fcfeff;
+  background: -moz-linear-gradient(left, #fcfeff 85%, #d7e4ea 93%, #b3d7e5 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(85%, #fcfeff), color-stop(93%, #d7e4ea), color-stop(100%, #b3d7e5));
+  background: -webkit-linear-gradient(left, #fcfeff 85%, #d7e4ea 93%, #b3d7e5 100%);
+  background: -o-linear-gradient(left, #fcfeff 85%, #d7e4ea 93%, #b3d7e5 100%);
+  background: -ms-linear-gradient(left, #fcfeff 85%, #d7e4ea 93%, #b3d7e5 100%);
+  background: linear-gradient(to right, #fcfeff 85%, #d7e4ea 93%, #b3d7e5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfeff', endColorstr='#b3d7e5', GradientType=1); }
+  .reservation-details-container.check-in {
+    width: 100%; }
+  .reservation-details-container .room-reservation {
+    display: flex;
+    flex-wrap: wrap; }
+    .reservation-details-container .room-reservation .room-type {
+      min-width: 10em;
+      padding-right: 1.5em; }
+      .reservation-details-container .room-reservation .room-type .room-name {
+        letter-spacing: 3px;
+        font-weight: bolder;
+        font-size: 1.5em;
+        text-transform: uppercase; }
+      .reservation-details-container .room-reservation .room-type .room-status {
+        margin-top: .5em;
+        padding: .3em .3em;
+        display: flex;
+        position: relative;
+        height: 2.5em;
+        min-width: 15em;
+        line-height: 1em;
+        font-weight: bold;
+        font-size: 1.2em;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: #fff; }
+        .reservation-details-container .room-reservation .room-type .room-status p {
+          margin: auto;
+          text-align: center; }
+      .reservation-details-container .room-reservation .room-type .room-free {
+        background-color: limegreen; }
+      .reservation-details-container .room-reservation .room-type .room-occupied {
+        background-color: orangered; }
+    .reservation-details-container .room-reservation .room-detail-container {
+      flex-direction: row;
+      align-items: center;
+      border-right: 1px solid rgba(0, 0, 0, 0.09);
+      border-left: 1px solid rgba(0, 0, 0, 0.09); }
+      .reservation-details-container .room-reservation .room-detail-container .room-detail-info {
+        margin: 0.5em 1em 0;
+        font-size: 1.3em; }
+    .reservation-details-container .room-reservation .room-assign {
+      cursor: pointer;
+      float: left;
+      text-align: center;
+      font-weight: bolder;
+      font-size: 2em;
+      line-height: 2em;
+      color: #00357f; }
+    .reservation-details-container .room-reservation .room-check-in {
+      transition: .4s all;
+      position: relative; }
+      .reservation-details-container .room-reservation .room-check-in .room-status-info {
+        line-height: 2em;
+        margin: 1em 1em; }
+      .reservation-details-container .room-reservation .room-check-in .room-check-in-label {
+        padding-left: 1em;
+        margin-left: 1em; }
+        .reservation-details-container .room-reservation .room-check-in .room-check-in-label .room-check-in-text {
+          text-align: center;
+          font-weight: bolder;
+          font-size: 2em;
+          line-height: 2em;
+          color: #00357f; }
+
+.room-actions {
+  float: right;
+  margin-right: -20px;
+  margin-top: 3em; }
+  .room-actions ul {
+    list-style: none; }
+    .room-actions ul li {
+      display: inline;
+      text-decoration: underline;
+      margin: 0 2px; }
+
+/*# sourceMappingURL=room.component.css.map */

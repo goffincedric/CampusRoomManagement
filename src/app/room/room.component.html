@@ -1,0 +1,40 @@
+<!--https://codepen.io/anon/pen/BvKroX-->
+<div class="reservation-details-container">
+  <div class="room-reservation">
+    <div class="room-type">
+      <div class="room-name">{{room.name}}</div>
+      <div *ngIf="hasCrowdedness" class="room-status" [style.background-color]="crowdedRgbString">
+        <p>Crowdedness: {{room.crowdedness}}</p>
+      </div>
+      <div *ngIf="hasOccupied" class="room-status {{room.occupied?'room-occupied':'room-free'}}">
+        <p>{{(room.occupied) ? "Occupied" : "Available"}}</p>
+      </div>
+    </div>
+    <div class="room-detail-container">
+      <div class="room-detail-info">
+        <i class="mdi mdi-{{room.icon_class}}"></i> {{room.type}}
+      </div>
+      <div class="room-detail-info">
+        Capacity: {{room.capacity}}
+      </div>
+      <div  *ngIf="room.hasBeamer" class="room-detail-info icons">
+        <div><i class="mdi mdi-projector"></i> Beamer available</div>
+      </div>
+    </div>
+
+    <div class="room-check-in">
+      <div class="room-check-in-label">
+        <div class="room-check-in-text">Check-In<i class="fa fa-chevron-circle-right"></i></div>
+      </div>
+    </div>
+  </div>
+  <div class="room-actions">
+    <ul>
+      <li>Check-In</li>
+      <li>Pre-Register</li>
+      <li>Connecting Rooms</li>
+      <li>Upgrade/Upsell</li>
+      <li>Find a Room</li>
+    </ul>
+  </div>
+</div>

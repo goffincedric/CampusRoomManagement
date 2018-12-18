@@ -1,0 +1,7 @@
+<section class="floor-list">
+  <app-room
+    *ngFor="let room of currentFloor.rooms; let i = index"
+    [room]="room"
+    [isList]="true"
+  ></app-room>
+</section>
