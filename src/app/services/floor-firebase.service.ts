@@ -19,7 +19,10 @@ export class FloorFirebaseService {
   }
 
   getFloorsByCampus(campusId: string): Observable<Floor[]> {
-    return this.afs.collection<Floor>(this.collectionName, ref => ref.where('campusId', '==', campusId)).valueChanges();
+    return this.afs.collection<Floor>(
+      this.collectionName,
+      ref => ref.where('campusId', '==', campusId).orderBy('floorNumber')
+    ).valueChanges();
   }
 
   getFloor(id: string): Observable<Floor> {

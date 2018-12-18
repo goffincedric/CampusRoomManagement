@@ -1,0 +1,39 @@
+.brand-container {
+  font-family: "Raleway", "Open Sans", sans-serif;
+  padding: 10px; }
+  .brand-container a {
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    -moz-transition-property: all;
+    -o-transition-property: all;
+    -webkit-transition-property: all;
+    transition-property: all;
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -moz-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    -webkit-transition-timing-function: ease-in;
+    transition-timing-function: ease-in; }
+  .brand-container a:hover {
+    color: #8cc63f; }
+  .brand-container .brand-initials {
+    font-size: 3.0625em;
+    font-weight: 700;
+    font-style: normal;
+    display: block; }
+  .brand-container .brand-name {
+    font-size: 0.8125em;
+    text-indent: 3px;
+    display: block; }
+
+@media (min-width: 768px) {
+  .brand-container {
+    padding: 10px 10px 25px 10px;
+    display: inline-block; }
+    .brand-container a {
+      display: block; } }
+
+/*# sourceMappingURL=campus-header.component.css.map */

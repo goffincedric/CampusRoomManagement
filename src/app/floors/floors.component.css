@@ -1,0 +1,14 @@
+header {
+  width: 100%;
+  background-color: #393939; }
+
+.content {
+  display: block;
+  width: 100%; }
+
+@media (min-width: 768px) {
+  .content {
+    display: inline-flex;
+    flex-direction: row; } }
+
+/*# sourceMappingURL=floors.component.css.map */

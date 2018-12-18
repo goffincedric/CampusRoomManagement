@@ -1,0 +1,49 @@
+<nav>
+  <div class='nav-container'>
+    <div>
+      <input id='slider1' name='slider1' type='checkbox'>
+      <label class='slide has-child' for='slider1'>
+        <span class='element'>Ca</span>
+        <span class='name'>Campus</span>
+      </label>
+      <div class='child-menu'>
+        <a *ngFor="let campus of campuses;"
+          [routerLink]="'/list/' + campus.slugUrl + '/0'">{{campus.name}}</a>
+      </div>
+    </div>
+    <div>
+      <input id='slider2' name='slider2' type='checkbox'>
+      <label class='slide has-child' for='slider2'>
+        <span class='element'>Fl</span>
+        <span class='name'>Floor</span>
+      </label>
+      <div class='child-menu'>
+        <a *ngFor="let floor of currentFloors; let i = index;"
+          [routerLink]="'/list/' + currentCampus.slugUrl + '/' + i">Floor {{floor.floorNumber}}</a>
+      </div>
+    </div>
+    <div>
+      <input id='slider3' name='slider3' type='checkbox'>
+      <label class='slide has-child' for='slider3'>
+        <span class='element'>La</span>
+        <span class='name'>Layout</span>
+      </label>
+      <div class='child-menu'>
+        <a href='#'>Plattegrond</a>
+        <a href='#'>Lijst</a>
+      </div>
+    </div>
+    <div>
+      <a class='slide' href='#'>
+        <span class='element'>Ab</span>
+        <span class='name'>About</span>
+      </a>
+    </div>
+    <div>
+      <a class='slide' href='#'>
+        <span class='element'>C</span>
+        <span class='name'>Contact</span>
+      </a>
+    </div>
+  </div>
+</nav>

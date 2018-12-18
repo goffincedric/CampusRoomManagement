@@ -1,0 +1,30 @@
+<header>
+  <app-campus-header
+    [currentCampus]="currentCampus"
+  ></app-campus-header>
+</header>
+<section class="content">
+  <app-menu
+    [campuses]="campuses"
+    [currentCampus]="currentCampus"
+    [currentFloors]="currentFloors"
+  ></app-menu>
+  <!--<div class='social-container'>-->
+  <!--<span>-->
+  <!--<a class='social-roll github' href='#'></a>-->
+  <!--</span>-->
+  <!--<span>-->
+  <!--<a class='social-roll twitter' href='#'></a>-->
+  <!--</span>-->
+  <!--<span>-->
+  <!--<a class='social-roll linkedin' href='#'></a>-->
+  <!--</span>-->
+  <!--<span>-->
+  <!--<a class='social-roll rss' href='#'></a>-->
+  <!--</span>-->
+  <!--</div>-->
+  <app-floor-list
+    [campusId]="currentCampus.id"
+    [floors]="currentFloors"
+  ></app-floor-list>
+</section>

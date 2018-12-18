@@ -10,13 +10,38 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {FloorListComponent} from './floor-list/floor-list.component';
 import {FloorMapComponent} from './floor-map/floor-map.component';
 import {environment} from '../environments/environment';
+import {RoomDetailComponent} from './room-detail/room-detail.component';
+import {RouterModule} from '@angular/router';
+import { CampusHeaderComponent } from './campus-header/campus-header.component';
+import { MenuComponent } from './menu/menu.component';
+import { FloorsComponent } from './floors/floors.component';
+
+const appRoutes = [
+  {path: 'list/', component: FloorsComponent},
+  {
+    path: 'list/:slug',
+    component: FloorsComponent,
+    children: [
+      {path: ':floorIndex', component: FloorListComponent}
+    ]
+  },
+  {path: 'map/', component: FloorsComponent},
+  {path: 'map/:slug/:floorIndex', component: FloorsComponent},
+  {path: 'room/:id', component: RoomDetailComponent},
+  {path: '', component: FloorsComponent},
+  {path: '**', component: FloorsComponent}
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     RoomComponent,
     FloorListComponent,
-    FloorMapComponent
+    FloorMapComponent,
+    RoomDetailComponent,
+    CampusHeaderComponent,
+    MenuComponent,
+    FloorsComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +49,8 @@ import {environment} from '../environments/environment';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),  // nodig voor alles
     AngularFirestoreModule,
-    AngularFirestoreModule.enablePersistence()             // Cloud Firestore (met offline data persistence)
+    AngularFirestoreModule.enablePersistence(),             // Cloud Firestore (met offline data persistence)
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
