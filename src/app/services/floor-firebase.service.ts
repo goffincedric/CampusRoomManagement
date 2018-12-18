@@ -7,17 +7,22 @@ import {Floor} from '../../utils/Floor';
   providedIn: 'root'
 })
 export class FloorFirebaseService {
-  allFloors: Observable<Floor[]>;
+  private collectionName = 'floors';
+  private allFloors: Observable<Floor[]>;
 
   constructor(private afs: AngularFirestore) {
-    this.allFloors = this.afs.collection<Floor>('floors').valueChanges();
+    this.allFloors = this.afs.collection<Floor>(this.collectionName).valueChanges();
   }
 
   getFloors(): Observable<Floor[]> {
     return this.allFloors;
   }
 
-  getFloor(id: number): Observable<Floor> {
-    return this.afs.doc<Floor>('floors/' + id).valueChanges();
+  getFloorsByCampus(campusId: string): Observable<Floor[]> {
+    return this.afs.collection<Floor>(this.collectionName, ref => ref.where('campusId', '==', campusId)).valueChanges();
+  }
+
+  getFloor(id: string): Observable<Floor> {
+    return this.afs.doc<Floor>(`${this.collectionName}/${id}`).valueChanges();
   }
 }

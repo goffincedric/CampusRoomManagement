@@ -1,9 +1,9 @@
 export class Floor {
-  public id: number;
+  public id: string;
   public floorNumber: number;
   public campusId: number;
 
-  constructor(id: number, floorNumber: number, campusId: number) {
+  constructor(id: string, floorNumber: number, campusId: number) {
     this.id = id;
     this.floorNumber = floorNumber;
     this.campusId = campusId;

@@ -25,9 +25,6 @@ export class RoomComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.room);
-    console.log(this.room.capacity);
-    console.log(this.room.crowdedness);
     this.crowdedRgbString = this.getColorForPercentage(1 / this.room.capacity * this.room.crowdedness);
     switch (this.room.type) {
       case RoomType.CAFETARIA:
@@ -43,7 +40,6 @@ export class RoomComponent implements OnInit {
   }
 
   getColorForPercentage(pct: number) {
-    console.log(pct);
     let i;
     for (i = 1; i < this.percentColors.length - 1; i++) {
       if (pct <= this.percentColors[i].pct) {
@@ -61,7 +57,6 @@ export class RoomComponent implements OnInit {
       g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
       b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
     };
-    console.log('rgb(' + [color.r, color.g, color.b].join(',') + ')');
     return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
     // or output as hex if preferred
   }

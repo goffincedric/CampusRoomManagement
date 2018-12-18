@@ -1,7 +1,4 @@
 :host {
-  display: inline-flex;
-  flex-direction: column;
-
   width: 100%;
   min-height: 100vh;
 }
@@ -10,35 +7,35 @@ a {
   text-decoration: none;
 }
 
-header {
+.brand-container, nav {
   font-family: "Open Sans", sans-serif;
+}
 
-  .brand-container {
-    font-family: "Raleway", "Open Sans", sans-serif;
+.brand-container {
+  font-family: "Raleway", "Open Sans", sans-serif;
 
-    padding: 10px;
-    background-color: #393939;
+  padding: 10px;
+  background-color: #393939;
 
-    a {
-      color: white;
-      display: inline-block;
-      -moz-transition-property: all;
-      -o-transition-property: all;
-      -webkit-transition-property: all;
-      transition-property: all;
-      -moz-transition-duration: 0.2s;
-      -o-transition-duration: 0.2s;
-      -webkit-transition-duration: 0.2s;
-      transition-duration: 0.2s;
-      -moz-transition-timing-function: ease-in;
-      -o-transition-timing-function: ease-in;
-      -webkit-transition-timing-function: ease-in;
-      transition-timing-function: ease-in;
-    }
+  a {
+    color: white;
+    display: inline-block;
+    -moz-transition-property: all;
+    -o-transition-property: all;
+    -webkit-transition-property: all;
+    transition-property: all;
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -moz-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    -webkit-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+  }
 
-    a:hover {
-      color: #8cc63f;
-    }
+  a:hover {
+    color: #8cc63f;
   }
 
   .brand-initials {
@@ -53,6 +50,12 @@ header {
     text-indent: 3px;
     display: block;
   }
+}
+
+.content {
+  display: block;
+
+  width: 100%;
 
   nav {
     display: table;
@@ -308,27 +311,26 @@ header {
       transition-timing-function: ease-in;
     }
   }
-}
 
-.application {
-  width: 100%;
+  .application {
+    width: 100%;
+  }
 }
 
 @media (min-width: 768px) {
-  :host {
-    flex-direction: row;
-  }
+  .brand-container {
+    padding: 10px 10px 25px 10px;
 
-  header {
-    width: fit-content;
+    width: 100%;
 
-    .brand-container {
-      padding: 15px 15px 50px 15px;
-
-      a {
-        display: block;
-      }
+    a {
+      display: block;
     }
+  }
+  .content {
+    display: inline-flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 
     nav {
       width: unset;

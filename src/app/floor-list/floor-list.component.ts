@@ -1,9 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RoomService} from '../services/room.service';
-import {FloorService} from '../services/floor.service';
 import {Floor} from '../../utils/Floor';
 import {FloorFirebaseService} from '../services/floor-firebase.service';
 import {RoomFirebaseService} from '../services/room-firebase.service';
+import {Room} from '../../utils/Room';
 
 @Component({
   selector: 'app-floor-list',
@@ -11,22 +10,29 @@ import {RoomFirebaseService} from '../services/room-firebase.service';
   styleUrls: ['./floor-list.component.scss']
 })
 export class FloorListComponent implements OnInit {
-
   floors: Floor[];
-  currentFloorIndex: number;
+
+  @Input()
+  campusId: string;
   @Input()
   currentFloor: Floor;
+
+  currentFloorIndex: number;
+  currentRooms: Room[];
 
   constructor(private floorService: FloorFirebaseService, private roomService: RoomFirebaseService) {
     this.currentFloorIndex = 0;
   }
 
   ngOnInit() {
-    this.floorService.getFloors().subscribe(floors => {
+    this.floorService.getFloorsByCampus(this.campusId).subscribe(floors => {
       this.floors = floors;
       if (this.currentFloor === undefined) {
-        this.currentFloor = floors[this.currentFloorIndex];
+        this.currentFloor = this.floors[this.currentFloorIndex];
       }
+      this.roomService.getRoomsByFloor(this.currentFloor.id).subscribe(rooms => {
+        this.currentRooms = rooms;
+      });
     });
   }
 

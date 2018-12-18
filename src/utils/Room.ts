@@ -1,7 +1,7 @@
 import {RoomType} from './RoomType';
 
 export class Room {
-  public id: number;
+  public id: string;
   public name: string;
   public type: RoomType;
   public icon_class: string;
@@ -18,7 +18,7 @@ export class Room {
   public height: number;
 
   constructor(
-    id: number,
+    id: string,
     name: string,
     type: RoomType,
     icon_class: string,
