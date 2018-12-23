@@ -1,6 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Room} from '../../utils/Room';
 import {RoomType} from '../../utils/RoomType';
+import {RoomFirebaseService} from '../services/room-firebase.service';
+import {Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-room',
@@ -13,30 +17,49 @@ export class RoomComponent implements OnInit {
     {pct: 0.5, color: {r: 0xf4, g: 0xd8, b: 0x00}},
     {pct: 1.0, color: {r: 0xff, g: 0x45, b: 0x2b}}
   ];
-
-  crowdedRgbString: string;
   hasCrowdedness = false;
   hasOccupied = false;
 
   @Input() room: Room;
   @Input() isList = false;
+  @Input() isPersonnel = true;
 
-  constructor() {
+  countdownString = '';
+  private reservedUntil: Date;
+
+  hoursSelected = 0;
+
+  // Crowdedness model for debounce time
+  crowdednessModelChanged: Subject<string> = new Subject<string>();
+
+  constructor(
+    private roomService: RoomFirebaseService,
+    private router: Router) {
+    // Set crowdedness slider event
+    this.crowdednessModelChanged.pipe(
+      debounceTime(500),
+      distinctUntilChanged())
+      .subscribe(crowdedness => roomService.updateRoomCrowdedness(this.room.id, +crowdedness));
   }
 
   ngOnInit() {
-    this.crowdedRgbString = this.getColorForPercentage(1 / this.room.capacity * this.room.crowdedness);
     switch (this.room.type) {
       case RoomType.CAFETARIA:
-      case RoomType.STUDIELANDSCHAP:
+      case RoomType.STUDY_HALL:
         this.hasCrowdedness = true;
         break;
-      case RoomType.AULA:
-      case RoomType.VERGADERZAAL:
-      case RoomType.BUREAU:
-      case RoomType.KLASLOKAAL:
+      case RoomType.AUDITORIUM:
+      case RoomType.CLASSROOM:
+      case RoomType.MEETING_ROOM:
+      case RoomType.OFFICE:
         this.hasOccupied = true;
     }
+
+    this.reservedUntil = new Date(this.room.reservedUntil);
+    if (this.room.occupied) {
+      this.countDown();
+    }
+
   }
 
   getColorForPercentage(pct: number) {
@@ -59,6 +82,41 @@ export class RoomComponent implements OnInit {
     };
     return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
     // or output as hex if preferred
+  }
+
+  countDown() {
+    setTimeout(() => {
+      const now = new Date(Date.now());
+      if (this.reservedUntil > now) {
+        const totalSeconds = (this.reservedUntil.getTime() - now.getTime()) / 1000;
+        const hours = Math.floor(totalSeconds / 60 / 60) % 24;
+        const mins = Math.floor(totalSeconds / 60) % 60;
+        const secs = Math.floor(totalSeconds) % 60;
+        this.countdownString = this.padNumber(hours) + ':' + this.padNumber(mins) + ':' + this.padNumber(secs);
+        this.countDown();
+      } else {
+        this.roomService.unreserveRoom(this.room.id);
+      }
+    }, 1000);
+  }
+
+  padNumber(num) {
+    return ((num < 10) ? '0' : '') + num;
+  }
+
+  onReserve() {
+    if (this.hoursSelected > 0) {
+      this.roomService.reserveRoom(this.room.id, +this.hoursSelected);
+    }
+  }
+
+  changeCrowdedness(event) {
+    this.room.crowdedness = event;
+    this.crowdednessModelChanged.next(event);
+  }
+
+  viewDetails() {
+    this.router.navigate(['/room/detail/' + this.room.id]);
   }
 
   onRoomClick(event: Event) {

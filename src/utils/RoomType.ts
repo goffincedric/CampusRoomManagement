@@ -1,9 +1,9 @@
 export enum RoomType {
-  KLASLOKAAL = 'Klaslokaal',
-  AULA = 'Aula',
-  VERGADERZAAL = 'Vergaderzaal',
-  BUREAU = 'Bureau',
-  STUDIELANDSCHAP = 'Studielandschap',
+  CLASSROOM = 'Classroom',
+  AUDITORIUM = 'Auditorium',
+  MEETING_ROOM = 'Meeting room',
+  OFFICE = 'Office',
+  STUDY_HALL = 'Study hall',
   CAFETARIA = 'Cafetaria'
 }
 

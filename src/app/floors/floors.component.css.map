@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,MAAO;EACL,KAAK,EAAE,IAAI;EAEX,gBAAgB,EAAE,OAAO;;AAG3B,QAAS;EACP,OAAO,EAAE,KAAK;EAEd,KAAK,EAAE,IAAI;;AAGb,yBAA0B;EACxB,QAAS;IACP,OAAO,EAAE,WAAW;IACpB,cAAc,EAAE,GAAG",
-"sources": ["floors.component.scss"],
-"names": [],
-"file": "floors.component.css"
-}

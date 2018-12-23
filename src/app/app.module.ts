@@ -12,24 +12,23 @@ import {FloorMapComponent} from './floor-map/floor-map.component';
 import {environment} from '../environments/environment';
 import {RoomDetailComponent} from './room-detail/room-detail.component';
 import {RouterModule} from '@angular/router';
-import { CampusHeaderComponent } from './campus-header/campus-header.component';
-import { MenuComponent } from './menu/menu.component';
-import { FloorsComponent } from './floors/floors.component';
-
+import {CampusHeaderComponent} from './campus-header/campus-header.component';
+import {MenuComponent} from './menu/menu.component';
+// Indien /list => childroute met path '' die redirect naar /list/groenplaats/1
 const appRoutes = [
-  {path: 'list/', component: FloorsComponent},
-  {
-    path: 'list/:slug',
-    component: FloorsComponent,
-    children: [
-      {path: ':floorIndex', component: FloorListComponent}
-    ]
-  },
-  {path: 'map/', component: FloorsComponent},
-  {path: 'map/:slug/:floorIndex', component: FloorsComponent},
-  {path: 'room/:id', component: RoomDetailComponent},
-  {path: '', component: FloorsComponent},
-  {path: '**', component: FloorsComponent}
+  {path: 'list', redirectTo: 'list/campus/groenplaats/floor/1', pathMatch: 'full'},
+  {path: 'list/campus', redirectTo: 'list/campus/groenplaats/floor/1', pathMatch: 'full'},
+  {path: 'list/campus/:slug', redirectTo: 'list/campus/:slug/floor/0', pathMatch: 'full'},
+  {path: 'list/campus/:slug/floor', redirectTo: 'list/campus/:slug/floor/0', pathMatch: 'full'},
+  {path: 'list/campus/:slug/floor/:floorIndex', component: FloorListComponent},
+  {path: 'map', redirectTo: 'map/campus/groenplaats/floor/1', pathMatch: 'full'},
+  {path: 'map/campus', redirectTo: 'map/campus/groenplaats/floor/1', pathMatch: 'full'},
+  {path: 'map/campus/:slug', redirectTo: 'map/campus/:slug/floor/0', pathMatch: 'full'},
+  {path: 'map/campus/:slug/floor', redirectTo: 'map/campus/:slug/floor/0', pathMatch: 'full'},
+  {path: 'map/campus/:slug/floor/:floorIndex', component: FloorListComponent},
+  {path: 'room/detail/:id', component: RoomDetailComponent},
+  {path: '', redirectTo: '/list/campus/groenplaats/floor/1', pathMatch: 'full'},
+  {path: '**', component: FloorListComponent} // Veranderen naar error component
 ];
 
 @NgModule({
@@ -40,8 +39,7 @@ const appRoutes = [
     FloorMapComponent,
     RoomDetailComponent,
     CampusHeaderComponent,
-    MenuComponent,
-    FloorsComponent
+    MenuComponent
   ],
   imports: [
     BrowserModule,

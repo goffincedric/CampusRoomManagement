@@ -6,6 +6,8 @@ import {Room} from '../../utils/Room';
 import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {of} from 'rxjs';
+import {Campus} from '../../utils/Campus';
+import {CampusFirebaseService} from '../services/campus-firebase.service';
 
 @Component({
   selector: 'app-floor-list',
@@ -13,54 +15,39 @@ import {of} from 'rxjs';
   styleUrls: ['./floor-list.component.scss']
 })
 export class FloorListComponent implements OnInit {
-  @Input()
-  campusId: string;
-  @Input()
-  floors: Floor[];
-  @Input()
-  currentFloor: Floor;
+  campuses: Campus[];
+  currentCampus: Campus = new Campus('', '', '');
+  floors = [];
+  currentFloor: Floor = new Floor('', 0, '');
+  currentRooms = [];
 
-  currentFloorIndex: number;
-  currentRooms: Room[];
+  isPersonnel = false;
 
   constructor(
+    private campusService: CampusFirebaseService,
     private floorService: FloorFirebaseService,
     private roomService: RoomFirebaseService,
     private route: ActivatedRoute) {
-    this.currentFloorIndex = 0;
   }
 
   ngOnInit() {
-    if (this.route.firstChild !== null) {
-      this.route.firstChild.paramMap.pipe(switchMap((params: ParamMap) => {
-        return of(+params.get('floorIndex'));
-      }))
-        .subscribe(
-          floorIndex => {
-            console.log(floorIndex);
-            this.currentFloorIndex = floorIndex;
-            this.initRooms();
-          },
-          error => console.log(error as string)
-        );
-    }
-
-    if (this.floors === undefined) {
-      this.floorService.getFloorsByCampus(this.campusId).subscribe(floors => {
+    this.route.paramMap.pipe(switchMap((params: ParamMap) => this.campusService.getCampusBySlug(params.get('slug')))).subscribe(campus => {
+      this.currentCampus = campus[0];
+      this.floorService.getFloorsByCampus(this.currentCampus.id).subscribe(floors => {
         this.floors = floors;
-        this.initRooms();
+        this.route.paramMap.pipe(switchMap((params: ParamMap) => of(+params.get('floorIndex')))).subscribe(floorIndex => {
+          this.currentFloor = floors[floorIndex];
+          this.roomService.getRoomsByFloor(this.currentFloor.id).subscribe(rooms => this.currentRooms = rooms);
+        });
       });
-    } else {
-      this.initRooms();
-    }
+    });
+
+    this.campusService.getCampuses().subscribe(campuses => {
+      this.campuses = campuses;
+    });
   }
 
-  private initRooms() {
-    if (this.currentFloor === undefined) {
-      this.currentFloor = this.floors[this.currentFloorIndex];
-    }
-    this.roomService.getRoomsByFloor(this.currentFloor.id).subscribe(rooms => {
-      this.currentRooms = rooms;
-    });
+  changePersonnel(event) {
+    this.isPersonnel = event;
   }
 }

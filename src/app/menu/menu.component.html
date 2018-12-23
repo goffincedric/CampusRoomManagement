@@ -8,7 +8,7 @@
       </label>
       <div class='child-menu'>
         <a *ngFor="let campus of campuses;"
-          [routerLink]="'/list/' + campus.slugUrl + '/0'">{{campus.name}}</a>
+          [routerLink]="'/list/campus/' + campus.slugUrl + '/floor/0'">{{campus.name}}</a>
       </div>
     </div>
     <div>
@@ -19,7 +19,7 @@
       </label>
       <div class='child-menu'>
         <a *ngFor="let floor of currentFloors; let i = index;"
-          [routerLink]="'/list/' + currentCampus.slugUrl + '/' + i">Floor {{floor.floorNumber}}</a>
+          [routerLink]="['../',  i]">Floor {{floor.floorNumber}}</a>
       </div>
     </div>
     <div>
@@ -29,8 +29,8 @@
         <span class='name'>Layout</span>
       </label>
       <div class='child-menu'>
-        <a href='#'>Plattegrond</a>
-        <a href='#'>Lijst</a>
+        <a href='#'>List</a>
+        <a href='#'>Floorplan</a>
       </div>
     </div>
     <div>
@@ -47,3 +47,22 @@
     </div>
   </div>
 </nav>
+<!--https://codepen.io/MichaelArestad/pen/vbAxI-->
+<div *ngIf="showSettings" class="side-panel a">
+  <ul>
+    <li [style.visibility]="currentFloorIndex < currentFloors.length -1 ? 'visible' : 'hidden'"><a [routerLink]="['../', currentFloorIndex + 1]"><i class="mdi mdi-arrow-up-drop-circle"></i><span class="menu-item">Floor up</span></a></li>
+    <li [style.visibility]="currentFloorIndex > 0 ? 'visible' : 'hidden'"><a [routerLink]="['../', currentFloorIndex - 1]"><i class="mdi mdi-arrow-down-drop-circle"></i><span class="menu-item">Floor down</span></a></li>
+    <li>
+      <a><i class="mdi mdi-tune"></i></a>
+      <ul>
+        <li><a>Edit</a>
+        <li><a>
+          <input class="tgl tgl-skewed" id="cb3" type="checkbox" [ngModel]="isPersonnel" (ngModelChange)="onChangePersonnel()"/>
+          <label class="tgl-btn" data-tg-off="User" data-tg-on="Personnel" for="cb3"></label>
+        </a></li>
+        <li><a>Setting 3</a>
+        <li><a>Setting 4</a>
+      </ul>
+    </li>
+  </ul>
+</div>
