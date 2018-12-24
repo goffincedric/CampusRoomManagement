@@ -2,7 +2,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {RoomComponent} from './room/room.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {AngularFireModule} from '@angular/fire';
@@ -14,6 +13,8 @@ import {RoomDetailComponent} from './room-detail/room-detail.component';
 import {RouterModule} from '@angular/router';
 import {CampusHeaderComponent} from './campus-header/campus-header.component';
 import {MenuComponent} from './menu/menu.component';
+import { RoomListItemComponent } from './room-list-item/room-list-item.component';
+import { RoomMapItemComponent } from './room-map-item/room-map-item.component';
 // Indien /list => childroute met path '' die redirect naar /list/groenplaats/1
 const appRoutes = [
   {path: 'list', redirectTo: 'list/campus/groenplaats/floor/1', pathMatch: 'full'},
@@ -25,7 +26,7 @@ const appRoutes = [
   {path: 'map/campus', redirectTo: 'map/campus/groenplaats/floor/1', pathMatch: 'full'},
   {path: 'map/campus/:slug', redirectTo: 'map/campus/:slug/floor/0', pathMatch: 'full'},
   {path: 'map/campus/:slug/floor', redirectTo: 'map/campus/:slug/floor/0', pathMatch: 'full'},
-  {path: 'map/campus/:slug/floor/:floorIndex', component: FloorListComponent},
+  {path: 'map/campus/:slug/floor/:floorIndex', component: FloorMapComponent},
   {path: 'room/detail/:id', component: RoomDetailComponent},
   {path: '', redirectTo: '/list/campus/groenplaats/floor/1', pathMatch: 'full'},
   {path: '**', component: FloorListComponent} // Veranderen naar error component
@@ -34,12 +35,13 @@ const appRoutes = [
 @NgModule({
   declarations: [
     AppComponent,
-    RoomComponent,
     FloorListComponent,
     FloorMapComponent,
     RoomDetailComponent,
     CampusHeaderComponent,
-    MenuComponent
+    MenuComponent,
+    RoomListItemComponent,
+    RoomMapItemComponent
   ],
   imports: [
     BrowserModule,

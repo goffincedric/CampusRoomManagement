@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {Campus} from '../../utils/Campus';
 import {Floor} from '../../utils/Floor';
 
@@ -22,8 +22,10 @@ export class MenuComponent implements OnInit {
   @Output() changePersonnel: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   isPersonnel = false;
+  screenWidth = window.innerWidth;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
@@ -31,5 +33,10 @@ export class MenuComponent implements OnInit {
   onChangePersonnel() {
     this.isPersonnel = !this.isPersonnel;
     this.changePersonnel.emit(this.isPersonnel);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onMenuResize(event) {
+    this.screenWidth = window.innerWidth;
   }
 }

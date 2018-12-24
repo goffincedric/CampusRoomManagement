@@ -1,3 +1,45 @@
-<p>
-  floor-map works!
-</p>
+<header>
+  <app-campus-header
+    [currentCampus]="currentCampus"
+  ></app-campus-header>
+</header>
+<section class="content">
+  <app-menu
+    [campuses]="campuses"
+    [currentCampus]="currentCampus"
+    [currentFloors]="floors"
+    [currentFloorIndex]="floors.indexOf(currentFloor)"
+    [showSettings]="true"
+    (changePersonnel)="changePersonnel($event)"
+  ></app-menu>
+  <!--<div class='social-container'>-->
+  <!--<span>-->
+  <!--<a class='social-roll github' href='#'></a>-->
+  <!--</span>-->
+  <!--<span>-->
+  <!--<a class='social-roll twitter' href='#'></a>-->
+  <!--</span>-->
+  <!--<span>-->
+  <!--<a class='social-roll linkedin' href='#'></a>-->
+  <!--</span>-->
+  <!--<span>-->
+  <!--<a class='social-roll rss' href='#'></a>-->
+  <!--</span>-->
+  <!--</div>-->
+  <section class="room-grid" [style.grid-template-columns]="colStyle">
+    <app-room-map-item
+      *ngFor="let room of currentRooms"
+      [style.grid-column-start]="room.x"
+      [style.grid-column-end]="'span ' + room.width"
+      [style.grid-row-start]="room.y"
+      [style.grid-row-end]="'span ' + room.height"
+      [room]="room"
+      [isPersonnel]="isPersonnel"
+    ></app-room-map-item>
+    <!--<app-room-list-item-->
+    <!--*ngFor="let room of currentRooms"-->
+    <!--[room]="room"-->
+    <!--[isPersonnel]="isPersonnel"-->
+    <!--&gt;</app-room-list-item>-->
+  </section>
+</section>

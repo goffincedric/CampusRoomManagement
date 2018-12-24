@@ -27,11 +27,10 @@
   <!--</span>-->
   <!--</div>-->
   <section class="room-list">
-    <app-room
-      *ngFor="let room of currentRooms; let i = index"
+    <app-room-list-item
+      *ngFor="let room of currentRooms"
       [room]="room"
-      [isList]="true"
       [isPersonnel]="isPersonnel"
-    ></app-room>
+    ></app-room-list-item>
   </section>
 </section>

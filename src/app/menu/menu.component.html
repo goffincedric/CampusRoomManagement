@@ -19,7 +19,7 @@
       </label>
       <div class='child-menu'>
         <a *ngFor="let floor of currentFloors; let i = index;"
-          [routerLink]="['../',  i]">Floor {{floor.floorNumber}}</a>
+          [routerLink]="['../',  i]">Floor {{floor.floorNumber}}</a> <!-- TODO: aanpassen naar floor numbers?-->
       </div>
     </div>
     <div>
@@ -29,8 +29,8 @@
         <span class='name'>Layout</span>
       </label>
       <div class='child-menu'>
-        <a href='#'>List</a>
-        <a href='#'>Floorplan</a>
+        <a [routerLink]="['/list']">List</a> <!-- TODO: ngIf aanpassen?-->
+        <a *ngIf="screenWidth > 768" [routerLink]="['/map']">Floorplan</a>
       </div>
     </div>
     <div>

@@ -1,13 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Floor} from '../../utils/Floor';
 import {FloorFirebaseService} from '../services/floor-firebase.service';
 import {RoomFirebaseService} from '../services/room-firebase.service';
-import {Room} from '../../utils/Room';
 import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {of} from 'rxjs';
 import {Campus} from '../../utils/Campus';
 import {CampusFirebaseService} from '../services/campus-firebase.service';
+import {Room} from '../../utils/Room';
 
 @Component({
   selector: 'app-floor-list',
@@ -15,11 +15,11 @@ import {CampusFirebaseService} from '../services/campus-firebase.service';
   styleUrls: ['./floor-list.component.scss']
 })
 export class FloorListComponent implements OnInit {
-  campuses: Campus[];
+  campuses: Campus[] = [];
+  floors: Floor[] = [];
+  currentRooms: Room[] = [];
   currentCampus: Campus = new Campus('', '', '');
-  floors = [];
   currentFloor: Floor = new Floor('', 0, '');
-  currentRooms = [];
 
   isPersonnel = false;
 
@@ -27,7 +27,8 @@ export class FloorListComponent implements OnInit {
     private campusService: CampusFirebaseService,
     private floorService: FloorFirebaseService,
     private roomService: RoomFirebaseService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute
+  ) {
   }
 
   ngOnInit() {
