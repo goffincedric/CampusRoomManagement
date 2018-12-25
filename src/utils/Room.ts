@@ -5,7 +5,6 @@ export class Room {
   public name: string;
   public additionalName: string;
   public type: RoomType;
-  public icon_class: string;
   public capacity: number;
   public hasBeamer: boolean;
   public occupied: boolean;
@@ -23,7 +22,6 @@ export class Room {
     name: string,
     additionalName: string,
     type: RoomType,
-    icon_class: string,
     capacity: number,
     hasBeamer: boolean,
     occupied: boolean,
@@ -38,7 +36,6 @@ export class Room {
     this.name = name;
     this.additionalName = additionalName;
     this.type = type;
-    this.icon_class = icon_class;
     this.capacity = capacity;
     this.hasBeamer = hasBeamer;
     this.occupied = occupied;
@@ -49,5 +46,16 @@ export class Room {
     this.width = width;
     this.height = height;
     this.floorId = floorId;
+  }
+
+  public get icon_class(): string {
+    switch (this.type) {
+      case RoomType.AUDITORIUM: return 'account-group';
+      case RoomType.CAFETARIA: return 'coffee';
+      case RoomType.CLASSROOM: return 'chair-school';
+      case RoomType.MEETING_ROOM: return 'clipboard-text';
+      case RoomType.OFFICE: return 'desktop-tower-monitor';
+      case RoomType.STUDY_HALL: return 'book-open-page-variant';
+    }
   }
 }

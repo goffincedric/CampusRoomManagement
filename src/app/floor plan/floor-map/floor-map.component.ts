@@ -1,22 +1,27 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {CampusFirebaseService} from '../services/campus-firebase.service';
-import {FloorFirebaseService} from '../services/floor-firebase.service';
-import {RoomFirebaseService} from '../services/room-firebase.service';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {CampusFirebaseService} from '../../services/campus-firebase.service';
+import {FloorFirebaseService} from '../../services/floor-firebase.service';
+import {RoomFirebaseService} from '../../services/room-firebase.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
-import {of} from 'rxjs';
-import {Campus} from '../../utils/Campus';
-import {Floor} from '../../utils/Floor';
-import {Room} from '../../utils/Room';
+import {of, Subscription} from 'rxjs';
+import {Campus} from '../../../utils/Campus';
+import {Floor} from '../../../utils/Floor';
+import {Room} from '../../../utils/Room';
 
 @Component({
   selector: 'app-floor-map',
   templateUrl: './floor-map.component.html',
   styleUrls: ['./floor-map.component.scss']
 })
-export class FloorMapComponent implements OnInit {
+export class FloorMapComponent implements OnInit, OnDestroy {
+  private campusSubscription: Subscription;
+  private floorSubscription: Subscription;
+  private roomSubscription: Subscription;
+
   campuses: Campus[] = [];
   floors: Floor[] = [];
+  floorNumbers: number[] = [];
   currentRooms: Room[] = [];
   currentCampus: Campus = new Campus('', '', '');
   currentFloor: Floor = new Floor('', 0, '');
@@ -37,11 +42,12 @@ export class FloorMapComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.pipe(switchMap((params: ParamMap) => this.campusService.getCampusBySlug(params.get('slug')))).subscribe(campus => {
       this.currentCampus = campus[0];
-      this.floorService.getFloorsByCampus(this.currentCampus.id).subscribe(floors => {
-        this.floors = floors;
-        this.route.paramMap.pipe(switchMap((params: ParamMap) => of(+params.get('floorIndex')))).subscribe(floorIndex => {
-          this.currentFloor = floors[floorIndex];
-          this.roomService.getRoomsByFloor(this.currentFloor.id).subscribe(rooms => {
+      this.floorSubscription = this.floorService.getFloorsByCampus(this.currentCampus.id).subscribe(floors => {
+        this.route.paramMap.pipe(switchMap((params: ParamMap) => of(+params.get('floorNumber')))).subscribe(floorNumber => {
+          this.floors = floors;
+          this.floorNumbers = this.floors.map(floor => floor.floorNumber);
+          this.currentFloor = this.floors.filter(floor => floor.floorNumber === floorNumber)[0];
+          this.roomSubscription = this.roomService.getRoomsByFloor(this.currentFloor.id).subscribe(rooms => {
             this.currentRooms = rooms;
             const colAmount = Math.max(...rooms.map(room => room.x + room.width - 1));
             let colStyleText = '';
@@ -54,7 +60,7 @@ export class FloorMapComponent implements OnInit {
       });
     });
 
-    this.campusService.getCampuses().subscribe(campuses => {
+    this.campusSubscription = this.campusService.getCampuses().subscribe(campuses => {
       this.campuses = campuses;
     });
   }
@@ -78,5 +84,11 @@ export class FloorMapComponent implements OnInit {
         this.router.navigate([newUrl]);
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.campusSubscription.unsubscribe();
+    this.floorSubscription.unsubscribe();
+    this.roomSubscription.unsubscribe();
   }
 }

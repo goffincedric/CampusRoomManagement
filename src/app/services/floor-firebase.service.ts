@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {Floor} from '../../utils/Floor';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,25 @@ export class FloorFirebaseService {
     ).valueChanges();
   }
 
+  // getFloorByCampusFloorNumber(campusId: string): Observable<Floor> {
+  //   return this.afs.collection<Floor>(
+  //     this.collectionName,
+  //     ref => ref
+  //       .where('id', '==', id)
+  //       .orderBy('floorNumber')
+  //   ).valueChanges().pipe(
+  //     map(floors => floors[0])
+  //   );
+  // }
+
   getFloor(id: string): Observable<Floor> {
-    return this.afs.doc<Floor>(`${this.collectionName}/${id}`).valueChanges();
+    return this.afs.collection<Floor>(
+      this.collectionName,
+      ref => ref
+        .where('id', '==', id)
+        .orderBy('floorNumber')
+    ).valueChanges().pipe(
+      map(floors => floors[0])
+    );
   }
 }

@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Campus} from '../../utils/Campus';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,12 @@ export class CampusFirebaseService {
   }
 
   getCampus(id: string): Observable<Campus> {
-    return this.afs.doc<Campus>(`${this.collectionName}/${id}`).valueChanges();
+    return this.afs.collection<Campus>(
+      this.collectionName,
+      ref => ref.where('id', '==', id)
+    ).valueChanges().pipe(
+      map(campuses => campuses[0])
+    );
   }
 
   getCampusBySlug(slug: string): Observable<Campus[]> {

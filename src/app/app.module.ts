@@ -6,27 +6,27 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {FloorListComponent} from './floor-list/floor-list.component';
-import {FloorMapComponent} from './floor-map/floor-map.component';
+import {FloorListComponent} from './list/floor-list/floor-list.component';
+import {FloorMapComponent} from './floor plan/floor-map/floor-map.component';
 import {environment} from '../environments/environment';
 import {RoomDetailComponent} from './room-detail/room-detail.component';
 import {RouterModule} from '@angular/router';
 import {CampusHeaderComponent} from './campus-header/campus-header.component';
 import {MenuComponent} from './menu/menu.component';
-import { RoomListItemComponent } from './room-list-item/room-list-item.component';
-import { RoomMapItemComponent } from './room-map-item/room-map-item.component';
+import { RoomListItemComponent } from './list/room-list-item/room-list-item.component';
+import { RoomMapItemComponent } from './floor plan/room-map-item/room-map-item.component';
 // Indien /list => childroute met path '' die redirect naar /list/groenplaats/1
 const appRoutes = [
   {path: 'list', redirectTo: 'list/campus/groenplaats/floor/1', pathMatch: 'full'},
   {path: 'list/campus', redirectTo: 'list/campus/groenplaats/floor/1', pathMatch: 'full'},
   {path: 'list/campus/:slug', redirectTo: 'list/campus/:slug/floor/0', pathMatch: 'full'},
   {path: 'list/campus/:slug/floor', redirectTo: 'list/campus/:slug/floor/0', pathMatch: 'full'},
-  {path: 'list/campus/:slug/floor/:floorIndex', component: FloorListComponent},
+  {path: 'list/campus/:slug/floor/:floorNumber', component: FloorListComponent},
   {path: 'map', redirectTo: 'map/campus/groenplaats/floor/1', pathMatch: 'full'},
   {path: 'map/campus', redirectTo: 'map/campus/groenplaats/floor/1', pathMatch: 'full'},
   {path: 'map/campus/:slug', redirectTo: 'map/campus/:slug/floor/0', pathMatch: 'full'},
   {path: 'map/campus/:slug/floor', redirectTo: 'map/campus/:slug/floor/0', pathMatch: 'full'},
-  {path: 'map/campus/:slug/floor/:floorIndex', component: FloorMapComponent},
+  {path: 'map/campus/:slug/floor/:floorNumber', component: FloorMapComponent},
   {path: 'room/detail/:id', component: RoomDetailComponent},
   {path: '', redirectTo: '/list/campus/groenplaats/floor/1', pathMatch: 'full'},
   {path: '**', component: FloorListComponent} // Veranderen naar error component

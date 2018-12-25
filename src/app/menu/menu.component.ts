@@ -1,6 +1,7 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {Campus} from '../../utils/Campus';
 import {Floor} from '../../utils/Floor';
+import {of, Subject} from 'rxjs';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +16,9 @@ export class MenuComponent implements OnInit {
   @Input()
   currentFloors: Floor[];
   @Input()
-  currentFloorIndex: number;
+  currentFloorNumbers: number[];
+  @Input()
+  currentFloorNumber: number;
   @Input()
   showSettings = false;
 

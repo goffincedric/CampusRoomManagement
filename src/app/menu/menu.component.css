@@ -134,7 +134,7 @@ nav {
     width: 100%;
     top: 65px;
     left: 0;
-    z-index: 2;
+    z-index: 5;
     -moz-transition-property: max-height;
     -o-transition-property: max-height;
     -webkit-transition-property: max-height;

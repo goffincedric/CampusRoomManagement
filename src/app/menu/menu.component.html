@@ -18,8 +18,8 @@
         <span class='name'>Floor</span>
       </label>
       <div class='child-menu'>
-        <a *ngFor="let floor of currentFloors; let i = index;"
-          [routerLink]="['../',  i]">Floor {{floor.floorNumber}}</a> <!-- TODO: aanpassen naar floor numbers?-->
+        <a *ngFor="let floor of currentFloors"
+          [routerLink]="['../',  floor.floorNumber]">Floor {{floor.floorNumber}}</a> <!-- TODO: aanpassen naar floor numbers?-->
       </div>
     </div>
     <div>
@@ -50,8 +50,8 @@
 <!--https://codepen.io/MichaelArestad/pen/vbAxI-->
 <div *ngIf="showSettings" class="side-panel a">
   <ul>
-    <li [style.visibility]="currentFloorIndex < currentFloors.length -1 ? 'visible' : 'hidden'"><a [routerLink]="['../', currentFloorIndex + 1]"><i class="mdi mdi-arrow-up-drop-circle"></i><span class="menu-item">Floor up</span></a></li>
-    <li [style.visibility]="currentFloorIndex > 0 ? 'visible' : 'hidden'"><a [routerLink]="['../', currentFloorIndex - 1]"><i class="mdi mdi-arrow-down-drop-circle"></i><span class="menu-item">Floor down</span></a></li>
+    <li [style.visibility]="currentFloorNumber < this.currentFloorNumbers.sort().reverse()[0] ? 'visible' : 'hidden'"><a [routerLink]="['../', currentFloorNumber + 1]"><i class="mdi mdi-arrow-up-drop-circle"></i><span class="menu-item">Floor up</span></a></li>
+    <li [style.visibility]="currentFloorNumber > this.currentFloorNumbers.sort()[0] ? 'visible' : 'hidden'"><a [routerLink]="['../', currentFloorNumber - 1]"><i class="mdi mdi-arrow-down-drop-circle"></i><span class="menu-item">Floor down</span></a></li>
     <li>
       <a><i class="mdi mdi-tune"></i></a>
       <ul>

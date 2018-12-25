@@ -1,3 +1,99 @@
-<p>
-  room-detail works!
-</p>
+<header>
+  <app-campus-header
+    [currentCampus]="campus"
+  ></app-campus-header>
+</header>
+<section class="content">
+  <form (ngSubmit)="saveRoom()" #roomForm="ngForm">
+    <!--{{diagnostic}}-->
+    <h2 *ngIf="room.additionalName.length === 0">Room: {{room.name}}</h2>
+    <h2 *ngIf="room.additionalName.length > 0">Room: {{room.name}} - {{room.additionalName}}</h2>
+    <div class="row">
+      <h4>General information</h4>
+      <div class="input-group input-group-icon">
+        <input type="text" name="name" placeholder="Room name..." [(ngModel)]="room.name" required/>
+        <div class="input-icon"><i class="mdi mdi-card-text-outline"></i></div>
+      </div>
+      <div class="input-group input-group-icon">
+        <input type="text" name="additionalName" placeholder="Additional room name..."
+               [(ngModel)]="room.additionalName"/>
+        <div class="input-icon"><i class="mdi mdi-card-text-outline"></i></div>
+      </div>
+      <div class="input-group input-group-icon">
+          <span class="custom-dropdown">
+            <select [selectedIndex]="roomTypes.indexOf(room.type)" (change)="setRoomType($event)" required>
+              <option *ngFor="let roomType of roomTypes" name="roomType" [ngValue]="roomType"
+                      ngDefaultControl>{{roomType}}</option>
+            </select>
+          </span>
+        <div class="input-icon"><i class="mdi mdi-format-list-bulleted-type"></i></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-half">
+        <h4>Beamer available</h4>
+        <div class="input-group">
+          <input type="radio" name="beamer" [value]=true id="beamer-yes" [(ngModel)]="room.hasBeamer" required/>
+          <label for="beamer-yes">Yes</label>
+          <input type="radio" name="beamer" [value]=false id="beamer-no" [(ngModel)]="room.hasBeamer" required/>
+          <label for="beamer-no">No</label>
+        </div>
+      </div>
+      <div class="col-half">
+        <h4>Occupied</h4>
+        <div class="input-group">
+          <input type="radio" name="occupied" [value]=true id="occupied-yes" [(ngModel)]="room.occupied" required/>
+          <label for="occupied-yes">Yes</label>
+          <input type="radio" name="occupied" [value]=false id="occupied-no" [(ngModel)]="room.occupied" required/>
+          <label for="occupied-no">No</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-half">
+        <h4>Maximum room capacity</h4>
+        <div class="input-group input-group-icon">
+          <input name="capacity" type="number" placeholder="Capacity..." [(ngModel)]="room.capacity" required/>
+          <div class="input-icon"><i class="mdi mdi-account-group"></i></div>
+        </div>
+      </div>
+      <div class="col-half">
+        <h4>Current room crowdedness</h4>
+        <div class="input-group input-group-icon">
+          <input name="crowdedness" type="number" placeholder="Crowdedness..." [(ngModel)]="room.crowdedness" required/>
+          <div class="input-icon"><i class="mdi mdi-account-group"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <h4>Floorplan position</h4>
+      <div class="col-fourth">
+        <div class="input-group input-group-icon">
+          <input name="x" type="number" placeholder="X position..." [(ngModel)]="room.x" required/>
+          <div class="input-icon-large"><i class="mdi mdi-alpha-x"></i></div>
+        </div>
+      </div>
+      <div class="col-fourth">
+        <div class="input-group input-group-icon">
+          <input name="y" type="number" placeholder="X position..." [(ngModel)]="room.y" required/>
+          <div class="input-icon-large"><i class="mdi mdi-alpha-y"></i></div>
+        </div>
+      </div>
+      <div class="col-fourth">
+        <div class="input-group input-group-icon">
+          <input name="width" type="number" placeholder="Width..." [(ngModel)]="room.width" required/>
+          <div class="input-icon"><i class="mdi mdi-arrow-expand-horizontal"></i></div>
+        </div>
+      </div>
+      <div class="col-fourth">
+        <div class="input-group input-group-icon">
+          <input name="height" type="number" placeholder="Height..." [(ngModel)]="room.height" required/>
+          <div class="input-icon"><i class="mdi mdi-arrow-expand-vertical"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button type="submit" class="button" [disabled]="!roomForm.form.valid">Save</button>
+    </div>
+  </form>
+</section>
