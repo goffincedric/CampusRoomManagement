@@ -33,6 +33,10 @@
     z-index: -1;
   }
 
+  &[type=submit] {
+    float: right;
+  }
+
   &:not([disabled]):hover {
     border: 1px solid transparent;
     cursor: pointer;
@@ -371,9 +375,7 @@ header {
   }
 
   button {
-    width: 10em;
-
-    float: right;
+    min-width: 10em;
   }
 
   .ng-invalid:not(form)  {

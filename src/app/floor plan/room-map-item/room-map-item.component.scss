@@ -1,0 +1,298 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+/* Custom control styles */
+// Button
+.button {
+  margin-top: 5px;
+  padding: 15px;
+  position: relative;
+  z-index: 1;
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  line-height: 1em;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  overflow: hidden;
+  transition: 0.3s;
+
+  &:after {
+    position: absolute;
+    transition: 0.3s;
+    content: "";
+    width: 0;
+    bottom: -3px;
+    background: rgba(0, 0, 0, 0.05);
+    height: 120%;
+    left: -10%;
+    -webkit-transform: skewX(25deg);
+    transform: skewX(25deg);
+    z-index: -1;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: #5bcaff;
+
+    &:after {
+      left: -10%;
+      width: 120%;
+    }
+  }
+}
+
+// Custom dropdown
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+
+  select {
+    background-color: #1abc9c;
+    color: #fff;
+    font-size: inherit;
+    padding: .5em 2.5em .5em .5em;
+    border: 0;
+    margin: 0;
+    border-radius: 3px;
+    text-indent: 0.01px;
+    text-overflow: '';
+    -webkit-appearance: button;
+
+    > option:hover {
+      background-color: #1b9978;
+    }
+  }
+
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: "\25BC";
+    height: 1em;
+    font-size: .625em;
+    line-height: 1;
+    right: 1.2em;
+    top: 50%;
+    margin-top: -.5em;
+    color: rgba(0, 0, 0, .4);
+  }
+
+  &::before {
+    width: 2em;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0 3px 3px 0;
+    background-color: rgba(0, 0, 0, .15);
+  }
+
+  select[disabled] {
+    color: rgba(0, 0, 0, .3);
+
+    &::after {
+      color: rgba(0, 0, 0, .1);
+    }
+  }
+}
+
+// Range slider
+$range-handle-color: #2c3e50 !default;
+$range-handle-size: 16px !default;
+$range-track-color: #d7dcdf !default;
+$range-label-color: #2c3e50 !default;
+$range-label-width: 60px !default;
+
+.crowdedness-range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: $range-track-color;
+  background: linear-gradient(to right, limegreen 0%, yellow 50%, orangered 100%);
+  outline: none;
+  padding: 0;
+  margin: 0;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: $range-handle-size;
+    height: $range-handle-size;
+    border-radius: 50%;
+    background: $range-handle-color;
+    cursor: pointer;
+    transition: background .15s ease-in-out;
+  }
+
+  &::-moz-range-thumb {
+    width: $range-handle-size;
+    height: $range-handle-size;
+    border: 0;
+    border-radius: 50%;
+    background: $range-handle-color;
+    cursor: pointer;
+    transition: background .15s ease-in-out;
+  }
+}
+
+// Firefox Overrides
+::-moz-range-track {
+  background: $range-track-color;
+  background: linear-gradient(to right, limegreen 0%, yellow 50%, orangered 100%);
+  border: 0;
+}
+
+input::-moz-focus-inner,
+input::-moz-focus-outer {
+  border: 0;
+}
+
+.room-container {
+  padding: 1.5em;
+
+  height: 100%;
+  width: 100%;
+
+  transition: .4s width;
+
+  -webkit-box-shadow: -1px 3px 43px -9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 3px 43px -9px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 3px 43px -9px rgba(0, 0, 0, 0.75);
+
+  //Gradient
+  background: rgb(252, 254, 255);
+  background: -moz-linear-gradient(left, rgba(252, 254, 255, 1) 85%, rgba(215, 228, 234, 1) 93%, rgba(179, 215, 229, 1) 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(85%, rgba(252, 254, 255, 1)), color-stop(93%, rgba(215, 228, 234, 1)), color-stop(100%, rgba(179, 215, 229, 1)));
+  background: -webkit-linear-gradient(left, rgba(252, 254, 255, 1) 85%, rgba(215, 228, 234, 1) 93%, rgba(179, 215, 229, 1) 100%);
+  background: -o-linear-gradient(left, rgba(252, 254, 255, 1) 85%, rgba(215, 228, 234, 1) 93%, rgba(179, 215, 229, 1) 100%);
+  background: -ms-linear-gradient(left, rgba(252, 254, 255, 1) 85%, rgba(215, 228, 234, 1) 93%, rgba(179, 215, 229, 1) 100%);
+  background: linear-gradient(to right, rgba(252, 254, 255, 1) 85%, rgba(215, 228, 234, 1) 93%, rgba(179, 215, 229, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfeff', endColorstr='#b3d7e5', GradientType=1);
+  background-attachment: fixed;
+
+
+  &.check-in {
+    width: 100%;
+  }
+
+  .room-inner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    height: 100%;
+
+    > section {
+      width: 100%;
+
+      display: flex;
+
+      font-size: 1.2rem;
+    }
+
+    .room-details {
+      display: inline-block;
+      position: relative;
+      word-break: break-all;
+
+      .room-name {
+        letter-spacing: 2px;
+        font-weight: bolder;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+      }
+
+      .room-additional-name {
+        letter-spacing: 2px;
+        font-weight: bolder;
+        text-transform: uppercase;
+      }
+
+      .room-status {
+        padding: .3em 1.3em;
+
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: auto;
+
+        justify-self: right;
+        line-height: 1.4em;
+        font-weight: bold;
+        font-size: 1.2rem;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: #fff;
+
+        p {
+          margin: auto;
+
+          word-break: unset;
+          text-align: center;
+        }
+      }
+
+      .room-free {
+        background-color: limegreen;
+      }
+
+      .room-occupied {
+        background-color: orangered;
+      }
+
+      .countdown {
+        width: auto;
+        float: right;
+      }
+    }
+
+    .room-facilities {
+      flex-wrap: wrap;
+
+      > div {
+        margin: 0.4em 0;
+      }
+
+      .room-detail-info > i {
+        padding-left: 0.4em;
+      }
+
+      .capacity {
+        width: 100%;
+        display: block;
+      }
+    }
+
+    //Check-in
+    .room-controls {
+      margin: 0.4em 0;
+      padding: 0;
+
+      .room-reservation {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: baseline;
+      }
+    }
+
+    .room-actions {
+
+
+    }
+  }
+}
+
+@media (min-width: 768px) {
+
+}

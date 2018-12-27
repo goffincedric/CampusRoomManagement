@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RoomFirebaseService} from '../services/room-firebase.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {Location} from '@angular/common';
 import {switchMap} from 'rxjs/operators';
 import {Room} from '../../utils/Room';
 import {FloorFirebaseService} from '../services/floor-firebase.service';
@@ -20,13 +21,16 @@ export class RoomDetailComponent implements OnInit {
   campus: Campus = new Campus('', 'Campus', '');
   floor: Floor = new Floor('', 0, '');
 
-  private roomSaved = undefined;
+  get diagnostic() {
+    return JSON.stringify(this.room);
+  }
 
   constructor(
     private roomService: RoomFirebaseService,
     private floorService: FloorFirebaseService,
     private campusService: CampusFirebaseService,
     private route: ActivatedRoute,
+    private location: Location,
     private router: Router
   ) {
   }
@@ -48,20 +52,12 @@ export class RoomDetailComponent implements OnInit {
     this.room.type = event.target.value;
   }
 
-  saveRoom() {
-    // this.roomService.updateRoom(this.room).then(
-    //   () => this.roomSaved = true,
-    //   () => this.roomSaved = false
-    // ).finally(() => {
-    //   setTimeout(() => {
-    //     this.roomSaved = undefined;
-    //   }, 10000);
-    // });
-    this.roomService.updateRoom(this.room)
-      .then(() => this.router.navigate(['/list/campus/' + this.campus.slugUrl + '/floor/' + this.floor.floorNumber]));
+  goBack() {
+    this.location.back();
   }
 
-  get diagnostic() {
-    return JSON.stringify(this.room);
+  saveRoom() {
+    this.roomService.updateRoom(this.room)
+      .then(() => this.router.navigate(['/list/campus/' + this.campus.slugUrl + '/floor/' + this.floor.floorNumber]));
   }
 }

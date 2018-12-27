@@ -4,7 +4,7 @@ import {FloorFirebaseService} from '../../services/floor-firebase.service';
 import {RoomFirebaseService} from '../../services/room-firebase.service';
 import {switchMap} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap} from '@angular/router';
-import {Observable, of, Subscription} from 'rxjs';
+import {of, Subject, Subscription} from 'rxjs';
 import {Campus} from '../../../utils/Campus';
 import {CampusFirebaseService} from '../../services/campus-firebase.service';
 import {Room} from '../../../utils/Room';
@@ -27,6 +27,13 @@ export class FloorListComponent implements OnInit, OnDestroy {
   currentFloor: Floor = new Floor('', 0, '');
 
   isPersonnel = false;
+  showsRoomName = true;
+  showsRoomStatus = true;
+  showsRoomType = true;
+  showsRoomCapacity = false;
+  showsRoomBeamer = false;
+
+  showsDetails = new Subject<boolean>();
 
   constructor(
     private campusService: CampusFirebaseService,
@@ -54,13 +61,37 @@ export class FloorListComponent implements OnInit, OnDestroy {
     });
   }
 
-  changePersonnel(event) {
-    this.isPersonnel = event;
-  }
-
   ngOnDestroy(): void {
     this.campusSubscription.unsubscribe();
     this.floorSubscription.unsubscribe();
     this.roomSubscription.unsubscribe();
+  }
+
+  changePersonnel(event) {
+    this.isPersonnel = event;
+  }
+
+  changeRoomName(event) {
+    this.showsRoomName = event;
+  }
+
+  changeRoomStatus(event) {
+    this.showsRoomStatus = event;
+  }
+
+  changeRoomType(event) {
+    this.showsRoomType = event;
+  }
+
+  changeRoomCapacity(event) {
+    this.showsRoomCapacity = event;
+  }
+
+  changeRoomBeamer(event) {
+    this.showsRoomBeamer = event;
+  }
+
+  hideOtherRoomClicks() {
+    this.showsDetails.next(false);
   }
 }

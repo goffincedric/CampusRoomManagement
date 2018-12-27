@@ -19,7 +19,7 @@
       </label>
       <div class='child-menu'>
         <a *ngFor="let floor of currentFloors"
-          [routerLink]="['../',  floor.floorNumber]">Floor {{floor.floorNumber}}</a> <!-- TODO: aanpassen naar floor numbers?-->
+          [routerLink]="['../',  floor.floorNumber]">Floor {{floor.floorNumber}}</a>
       </div>
     </div>
     <div>
@@ -29,7 +29,7 @@
         <span class='name'>Layout</span>
       </label>
       <div class='child-menu'>
-        <a [routerLink]="['/list']">List</a> <!-- TODO: ngIf aanpassen?-->
+        <a [routerLink]="['/list']">List</a>
         <a *ngIf="screenWidth > 768" [routerLink]="['/map']">Floorplan</a>
       </div>
     </div>
@@ -48,20 +48,41 @@
   </div>
 </nav>
 <!--https://codepen.io/MichaelArestad/pen/vbAxI-->
-<div *ngIf="showSettings" class="side-panel a">
+<div *ngIf="!hideSettings" class="side-panel a">
   <ul>
     <li [style.visibility]="currentFloorNumber < this.currentFloorNumbers.sort().reverse()[0] ? 'visible' : 'hidden'"><a [routerLink]="['../', currentFloorNumber + 1]"><i class="mdi mdi-arrow-up-drop-circle"></i><span class="menu-item">Floor up</span></a></li>
     <li [style.visibility]="currentFloorNumber > this.currentFloorNumbers.sort()[0] ? 'visible' : 'hidden'"><a [routerLink]="['../', currentFloorNumber - 1]"><i class="mdi mdi-arrow-down-drop-circle"></i><span class="menu-item">Floor down</span></a></li>
     <li>
       <a><i class="mdi mdi-tune"></i></a>
       <ul>
-        <li><a>Edit</a>
         <li><a>
-          <input class="tgl tgl-skewed" id="cb3" type="checkbox" [ngModel]="isPersonnel" (ngModelChange)="onChangePersonnel()"/>
-          <label class="tgl-btn" data-tg-off="User" data-tg-on="Personnel" for="cb3"></label>
+          <input class="tgl tgl-skewed" id="cb1" type="checkbox" [ngModel]="showsAll" (ngModelChange)="onShowAll()"/>
+          <label class="tgl-btn" data-tg-off="Hide all" data-tg-on="Show all" for="cb1"></label>
         </a></li>
-        <li><a>Setting 3</a>
-        <li><a>Setting 4</a>
+        <li><a>
+          <input class="tgl tgl-skewed" id="cb2" type="checkbox" [ngModel]="isPersonnel" (ngModelChange)="onChangePersonnel()"/>
+          <label class="tgl-btn" data-tg-off="User" data-tg-on="Personnel" for="cb2"></label>
+        </a></li>
+        <li><a>
+          <input class="tgl tgl-skewed" id="cb3" type="checkbox" [ngModel]="showsRoomName" (ngModelChange)="onShowRoomName()"/>
+          <label class="tgl-btn" data-tg-off="Hide name" data-tg-on="Show name" for="cb3"></label>
+        </a></li>
+        <li><a>
+          <input class="tgl tgl-skewed" id="cb4" type="checkbox" [ngModel]="showsRoomStatus" (ngModelChange)="onShowRoomStatus()"/>
+          <label class="tgl-btn" data-tg-off="Hide status" data-tg-on="Show status" for="cb4"></label>
+        </a></li>
+        <li><a>
+          <input class="tgl tgl-skewed" id="cb5" type="checkbox" [ngModel]="showsRoomType" (ngModelChange)="onShowRoomType()"/>
+          <label class="tgl-btn" data-tg-off="Hide type" data-tg-on="Show type" for="cb5"></label>
+        </a></li>
+        <li><a>
+          <input class="tgl tgl-skewed" id="cb6" type="checkbox" [ngModel]="showsRoomCapacity" (ngModelChange)="onShowRoomCapacity()"/>
+          <label class="tgl-btn" data-tg-off="Hide capacity" data-tg-on="Show capacity" for="cb6"></label>
+        </a></li>
+        <li><a>
+          <input class="tgl tgl-skewed" id="cb7" type="checkbox" [ngModel]="showsRoomBeamer" (ngModelChange)="onShowRoomBeamer()"/>
+          <label class="tgl-btn" data-tg-off="Hide beamer" data-tg-on="Show beamer" for="cb7"></label>
+        </a></li>
       </ul>
     </li>
   </ul>

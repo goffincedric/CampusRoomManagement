@@ -1,0 +1,54 @@
+<!--https://codepen.io/anon/pen/BvKroX-->
+<div class="room-container">
+  <div class="room-inner-container" (click)="onRoomClick()">
+    <section *ngIf="showsRoomName || showsRoomStatus" class="room-details">
+      <div *ngIf="showsRoomName" class="room-name">{{room.name}}</div>
+      <div *ngIf="showsRoomName" class="room-additional-name">{{room.additionalName}}</div>
+      <div *ngIf="hasCrowdedness && showsRoomStatus" class="room-status"
+           [style.background-color]="getColorForPercentage(1 / room.capacity * room.crowdedness)">
+        <p>Crowdedness: {{room.crowdedness}}</p>
+      </div>
+      <div *ngIf="hasOccupied && showsRoomStatus" class="room-status {{room.occupied?'room-occupied':'room-free'}}">
+        <p>{{(room.occupied) ? "Occupied" : "Available"}}</p>
+      </div>
+      <p class="countdown" *ngIf="hasOccupied && room.occupied && showsRoomStatus">Available in {{countdownString}}</p>
+    </section>
+    <section *ngIf="showsRoomType || showsRoomCapacity || (room.hasBeamer && showsRoomBeamer)" class="room-facilities">
+      <div *ngIf="showsRoomType" class="room-detail-info">
+        <i class="mdi mdi-{{room.icon_class}}"></i> {{room.type}}
+      </div>
+      <div *ngIf="showsRoomCapacity" class="room-detail-info">
+        Capacity: {{room.capacity}}
+      </div>
+      <div *ngIf="room.hasBeamer && showsRoomBeamer" class="room-detail-info">
+        <div><i class="mdi mdi-projector"></i> Beamer available</div>
+      </div>
+    </section>
+    <section *ngIf="isPersonnel && ((hasOccupied && !room.occupied) || (hasCrowdedness))" class="room-controls">
+      <div *ngIf="hasCrowdedness">
+        <label for="crowdedness-slider">Adjust crowdedness:</label>
+        <input id="crowdedness-slider"
+               class="crowdedness-range"
+               type="range"
+               [ngModel]="room.crowdedness"
+               (ngModelChange)="changeCrowdedness($event)" min="0"
+               max="{{room.capacity}}">
+      </div>
+      <div *ngIf="hasOccupied && !room.occupied" class="room-reservation">
+        <label for="reservation-hours-dropdown">Reserve for: </label>
+        <span class="custom-dropdown">
+        <select id="reservation-hours-dropdown" [(ngModel)]="hoursSelected">
+          <option value="0" selected>Select duration...</option>
+          <option value="1">1 hour</option>
+          <option value="2">2 hours</option>
+          <option value="3">3 hours</option>
+        </select>
+      </span>
+        <div class="button" (click)="onReserve()">Reserve now</div>
+      </div>
+    </section>
+    <section *ngIf="_showsDetails" class="room-actions">
+      <div class="button" (click)="viewDetails()">View room details</div>
+    </section>
+  </div>
+</div>

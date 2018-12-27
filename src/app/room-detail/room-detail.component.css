@@ -28,6 +28,8 @@
     -webkit-transform: skewX(25deg);
     transform: skewX(25deg);
     z-index: -1; }
+  .button[type=submit] {
+    float: right; }
   .button:not([disabled]):hover {
     border: 1px solid transparent;
     cursor: pointer;
@@ -256,8 +258,7 @@ header {
     .content .input-group-icon .input-icon-large i {
       font-size: 1.5em; }
   .content button {
-    width: 10em;
-    float: right; }
+    min-width: 10em; }
   .content .ng-invalid:not(form) {
     border-left: 5px solid #a94442;
     /* red */ }

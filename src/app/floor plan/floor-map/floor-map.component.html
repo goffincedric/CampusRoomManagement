@@ -10,8 +10,12 @@
     [currentFloors]="floors"
     [currentFloorNumbers]="floorNumbers"
     [currentFloorNumber]="currentFloor.floorNumber"
-    [showSettings]="true"
     (changePersonnel)="changePersonnel($event)"
+    (showRoomName)="changeRoomName($event)"
+    (showRoomStatus)="changeRoomStatus($event)"
+    (showRoomType)="changeRoomType($event)"
+    (showRoomCapacity)="changeRoomCapacity($event)"
+    (showRoomBeamer)="changeRoomBeamer($event)"
   ></app-menu>
   <!--<div class='social-container'>-->
   <!--<span>-->
@@ -36,6 +40,13 @@
       [style.grid-row-end]="'span ' + room.height"
       [room]="room"
       [isPersonnel]="isPersonnel"
+      [showsRoomName]="showsRoomName"
+      [showsRoomStatus]="showsRoomStatus"
+      [showsRoomType]="showsRoomType"
+      [showsRoomCapacity]="showsRoomCapacity"
+      [showsRoomBeamer]="showsRoomBeamer"
+      [showsDetails]="showsDetails"
+      (hideOtherRoomClicks)="hideOtherRoomClicks()"
     ></app-room-map-item>
     <!--<app-room-list-item-->
     <!--*ngFor="let room of currentRooms"-->
