@@ -75,36 +75,42 @@ export class MenuComponent implements OnInit {
 
   onChangePersonnel() {
     this.isPersonnel = !this.isPersonnel;
+    localStorage.setItem('isPersonnel', `${this.isPersonnel}`);
     this.changePersonnel.emit(this.isPersonnel);
     this.showsAll = this.checkShowHideAll();
   }
 
   onShowRoomName() {
     this.showsRoomName = !this.showsRoomName;
+    localStorage.setItem('showsRoomName', `${this.showsRoomName}`);
     this.showRoomName.emit(this.showsRoomName);
     this.showsAll = this.checkShowHideAll();
   }
 
   onShowRoomStatus() {
     this.showsRoomStatus = !this.showsRoomStatus;
+    localStorage.setItem('showsRoomStatus', `${this.showsRoomStatus}`);
     this.showRoomStatus.emit(this.showsRoomStatus);
     this.showsAll = this.checkShowHideAll();
   }
 
   onShowRoomType() {
     this.showsRoomType = !this.showsRoomType;
+    localStorage.setItem('showsRoomType', `${this.showsRoomType}`);
     this.showRoomType.emit(this.showsRoomType);
     this.showsAll = this.checkShowHideAll();
   }
 
   onShowRoomCapacity() {
     this.showsRoomCapacity = !this.showsRoomCapacity;
+    localStorage.setItem('showsRoomCapacity', `${this.showsRoomCapacity}`);
     this.showRoomCapacity.emit(this.showsRoomCapacity);
     this.showsAll = this.checkShowHideAll();
   }
 
   onShowRoomBeamer() {
     this.showsRoomBeamer = !this.showsRoomBeamer;
+    localStorage.setItem('showsRoomBeamer', `${this.showsRoomBeamer}`);
     this.showRoomBeamer.emit(this.showsRoomBeamer);
     this.showsAll = this.checkShowHideAll();
   }

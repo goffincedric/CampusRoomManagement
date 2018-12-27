@@ -23,6 +23,8 @@ header {
 @media (min-width: 768px) {
   .content {
     display: inline-flex;
-    flex-direction: row; } }
+    flex-direction: row;
+  }
+}
 
 /*# sourceMappingURL=floor-map.component.css.map */
