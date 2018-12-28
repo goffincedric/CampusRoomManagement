@@ -16,7 +16,7 @@ import {Floor} from '../../utils/Floor';
   styleUrls: ['./room-detail.component.scss']
 })
 export class RoomDetailComponent implements OnInit {
-  private room: Room = new Room('', '', '', RoomType.STUDY_HALL, 0, false, false, 0, '', 0, 0, 0, 0, '');
+  room: Room = new Room('', '', '', RoomType.STUDY_HALL, 0, false, false, 0, '', 0, 0, 0, 0, '');
   roomTypes = Object.keys(RoomType).map(roomType => RoomType[roomType] as string).sort();
   campus: Campus = new Campus('', 'Campus', '');
   floor: Floor = new Floor('', 0, '');
