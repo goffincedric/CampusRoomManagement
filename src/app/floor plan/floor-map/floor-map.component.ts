@@ -70,13 +70,6 @@ export class FloorMapComponent implements OnInit, OnDestroy {
     this.campusSubscription = this.campusService.getCampuses().subscribe(campuses => {
       this.campuses = campuses;
     });
-
-    this.isPersonnel = (localStorage.getItem('isPersonnel') !== null) ? JSON.parse(localStorage.getItem('isPersonnel')) : false;
-    this.showsRoomName = (localStorage.getItem('showsRoomName') !== null) ? JSON.parse(localStorage.getItem('showsRoomName')) : true;
-    this.showsRoomStatus = (localStorage.getItem('showsRoomStatus') !== null) ? JSON.parse(localStorage.getItem('showsRoomStatus')) : true;
-    this.showsRoomType = (localStorage.getItem('showsRoomType') !== null) ? JSON.parse(localStorage.getItem('showsRoomType')) : true;
-    this.showsRoomCapacity = (localStorage.getItem('showsRoomCapacity') !== null) ? JSON.parse(localStorage.getItem('showsRoomCapacity')) : false;
-    this.showsRoomBeamer = (localStorage.getItem('showsRoomBeamer') !== null) ? JSON.parse(localStorage.getItem('showsRoomBeamer')) : false;
   }
 
   ngOnDestroy(): void {

@@ -56,31 +56,31 @@
       <a><i class="mdi mdi-tune"></i></a>
       <ul>
         <li><a>
-          <input class="tgl tgl-skewed" id="cb1" type="checkbox" [ngModel]="showsAll" (ngModelChange)="onShowAll()"/>
+          <input class="tgl tgl-skewed" id="cb1" type="checkbox" [ngModel]="showsAll" (ngModelChange)="onShowAll($event)"/>
           <label class="tgl-btn" data-tg-off="Hide all" data-tg-on="Show all" for="cb1"></label>
         </a></li>
         <li><a>
-          <input class="tgl tgl-skewed" id="cb2" type="checkbox" [ngModel]="isPersonnel" (ngModelChange)="onChangePersonnel()"/>
+          <input class="tgl tgl-skewed" id="cb2" type="checkbox" [ngModel]="isPersonnel" (ngModelChange)="onChangePersonnel($event)"/>
           <label class="tgl-btn" data-tg-off="User" data-tg-on="Personnel" for="cb2"></label>
         </a></li>
         <li><a>
-          <input class="tgl tgl-skewed" id="cb3" type="checkbox" [ngModel]="showsRoomName" (ngModelChange)="onShowRoomName()"/>
+          <input class="tgl tgl-skewed" id="cb3" type="checkbox" [ngModel]="showsRoomName" (ngModelChange)="onShowRoomName($event)"/>
           <label class="tgl-btn" data-tg-off="Hide name" data-tg-on="Show name" for="cb3"></label>
         </a></li>
         <li><a>
-          <input class="tgl tgl-skewed" id="cb4" type="checkbox" [ngModel]="showsRoomStatus" (ngModelChange)="onShowRoomStatus()"/>
+          <input class="tgl tgl-skewed" id="cb4" type="checkbox" [ngModel]="showsRoomStatus" (ngModelChange)="onShowRoomStatus($event)"/>
           <label class="tgl-btn" data-tg-off="Hide status" data-tg-on="Show status" for="cb4"></label>
         </a></li>
         <li><a>
-          <input class="tgl tgl-skewed" id="cb5" type="checkbox" [ngModel]="showsRoomType" (ngModelChange)="onShowRoomType()"/>
+          <input class="tgl tgl-skewed" id="cb5" type="checkbox" [ngModel]="showsRoomType" (ngModelChange)="onShowRoomType($event)"/>
           <label class="tgl-btn" data-tg-off="Hide type" data-tg-on="Show type" for="cb5"></label>
         </a></li>
         <li><a>
-          <input class="tgl tgl-skewed" id="cb6" type="checkbox" [ngModel]="showsRoomCapacity" (ngModelChange)="onShowRoomCapacity()"/>
+          <input class="tgl tgl-skewed" id="cb6" type="checkbox" [ngModel]="showsRoomCapacity" (ngModelChange)="onShowRoomCapacity($event)"/>
           <label class="tgl-btn" data-tg-off="Hide capacity" data-tg-on="Show capacity" for="cb6"></label>
         </a></li>
         <li><a>
-          <input class="tgl tgl-skewed" id="cb7" type="checkbox" [ngModel]="showsRoomBeamer" (ngModelChange)="onShowRoomBeamer()"/>
+          <input class="tgl tgl-skewed" id="cb7" type="checkbox" [ngModel]="showsRoomBeamer" (ngModelChange)="onShowRoomBeamer($event)"/>
           <label class="tgl-btn" data-tg-off="Hide beamer" data-tg-on="Show beamer" for="cb7"></label>
         </a></li>
       </ul>

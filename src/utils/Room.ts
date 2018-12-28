@@ -49,7 +49,6 @@ export class Room {
   }
 
   get icon_class(): string {
-    console.log('kk');
     switch (this.type) {
       case RoomType.AUDITORIUM: return 'account-group';
       case RoomType.CAFETARIA: return 'coffee';
