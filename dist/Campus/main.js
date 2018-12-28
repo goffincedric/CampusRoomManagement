@@ -694,7 +694,10 @@ var FloorListComponent = /** @class */ (function () {
                     _this.floors = floors;
                     _this.floorNumbers = _this.floors.map(function (floor) { return floor.floorNumber; });
                     _this.currentFloor = _this.floors.filter(function (floor) { return floor.floorNumber === floorNumber; })[0];
-                    _this.roomSubscription = _this.roomService.getRoomsByFloor(_this.currentFloor.id).subscribe(function (rooms) { return _this.currentRooms = rooms; });
+                    _this.roomSubscription = _this.roomService.getRoomsByFloor(_this.currentFloor.id).subscribe(function (rooms) {
+                        _this.currentRooms = rooms;
+                        _this.currentRooms.sort();
+                    });
                 });
             });
         });
@@ -1063,13 +1066,8 @@ var MenuComponent = /** @class */ (function () {
             this.showsRoomBeamer);
     };
     MenuComponent.prototype.onChangePersonnel = function (event) {
-        console.log(event);
-        console.log(this.isPersonnel);
         this.isPersonnel = event;
-        console.log(this.isPersonnel);
-        console.log(JSON.parse(localStorage.getItem('isPersonnel')));
         localStorage.setItem('isPersonnel', "" + this.isPersonnel);
-        console.log(JSON.parse(localStorage.getItem('isPersonnel')));
         this.changePersonnel.emit(this.isPersonnel);
         this.showsAll = this.checkShowHideAll();
     };
@@ -1244,17 +1242,9 @@ var RoomDetailComponent = /** @class */ (function () {
         this.campus = new _utils_Campus__WEBPACK_IMPORTED_MODULE_9__["Campus"]('', 'Campus', '');
         this.floor = new _utils_Floor__WEBPACK_IMPORTED_MODULE_11__["Floor"]('', 0, '');
     }
-    Object.defineProperty(RoomDetailComponent.prototype, "diagnostic", {
-        get: function () {
-            return JSON.stringify(this.room);
-        },
-        enumerable: true,
-        configurable: true
-    });
     RoomDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.paramMap.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["switchMap"])(function (params) { return _this.roomService.getRoom(params.get('id')); })).subscribe(function (room) {
-            _this.room = room;
             _this.floorService.getFloor(room.floorId).subscribe(function (floor) {
                 _this.floor = floor;
                 _this.campusService.getCampus(floor.campusId).subscribe(function (campus) { return _this.campus = campus; });
@@ -1411,6 +1401,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _utils_RoomType__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/RoomType */ "./src/utils/RoomType.ts");
+
 
 
 
@@ -1434,12 +1426,11 @@ var RoomFirebaseService = /** @class */ (function () {
         return this.allRooms;
     };
     RoomFirebaseService.prototype.getRoomsByFloor = function (floorId) {
+        var _this = this;
         return this.afs.collection(this.collectionName, function (ref) { return ref.where('floorId', '==', floorId); })
             .snapshotChanges()
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (actions) { return actions.map(function (action) {
-            var data = action.payload.doc.data();
-            data.id = action.payload.doc.id;
-            return data;
+            return _this.mapDataToRoom(action.payload.doc.data(), action.payload.doc.id);
         }); }));
     };
     RoomFirebaseService.prototype.getRoom = function (roomId) {
@@ -1485,6 +1476,31 @@ var RoomFirebaseService = /** @class */ (function () {
     };
     RoomFirebaseService.prototype.updateRoomCrowdedness = function (roomId, crowdedness) {
         return this.roomsCollection.doc(roomId).update({ crowdedness: crowdedness });
+    };
+    RoomFirebaseService.prototype.mapDataToRoom = function (object, id) {
+        var data = object;
+        data.id = id;
+        switch (data.type) {
+            case _utils_RoomType__WEBPACK_IMPORTED_MODULE_5__["RoomType"].AUDITORIUM:
+                data.icon_class = 'account-group';
+                break;
+            case _utils_RoomType__WEBPACK_IMPORTED_MODULE_5__["RoomType"].CAFETARIA:
+                data.icon_class = 'coffee';
+                break;
+            case _utils_RoomType__WEBPACK_IMPORTED_MODULE_5__["RoomType"].CLASSROOM:
+                data.icon_class = 'chair-school';
+                break;
+            case _utils_RoomType__WEBPACK_IMPORTED_MODULE_5__["RoomType"].MEETING_ROOM:
+                data.icon_class = 'clipboard-text';
+                break;
+            case _utils_RoomType__WEBPACK_IMPORTED_MODULE_5__["RoomType"].OFFICE:
+                data.icon_class = 'desktop-tower-monitor';
+                break;
+            case _utils_RoomType__WEBPACK_IMPORTED_MODULE_5__["RoomType"].STUDY_HALL:
+                data.icon_class = 'book-open-page-variant';
+                break;
+        }
+        return data;
     };
     RoomFirebaseService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -1617,8 +1633,6 @@ var Floor = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Room", function() { return Room; });
-/* harmony import */ var _RoomType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomType */ "./src/utils/RoomType.ts");
-
 var Room = /** @class */ (function () {
     function Room(id, name, additionalName, type, capacity, hasBeamer, occupied, crowdedness, reservedUntil, x, y, width, height, floorId) {
         this.id = id;
@@ -1636,20 +1650,6 @@ var Room = /** @class */ (function () {
         this.height = height;
         this.floorId = floorId;
     }
-    Object.defineProperty(Room.prototype, "icon_class", {
-        get: function () {
-            switch (this.type) {
-                case _RoomType__WEBPACK_IMPORTED_MODULE_0__["RoomType"].AUDITORIUM: return 'account-group';
-                case _RoomType__WEBPACK_IMPORTED_MODULE_0__["RoomType"].CAFETARIA: return 'coffee';
-                case _RoomType__WEBPACK_IMPORTED_MODULE_0__["RoomType"].CLASSROOM: return 'chair-school';
-                case _RoomType__WEBPACK_IMPORTED_MODULE_0__["RoomType"].MEETING_ROOM: return 'clipboard-text';
-                case _RoomType__WEBPACK_IMPORTED_MODULE_0__["RoomType"].OFFICE: return 'desktop-tower-monitor';
-                case _RoomType__WEBPACK_IMPORTED_MODULE_0__["RoomType"].STUDY_HALL: return 'book-open-page-variant';
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     return Room;
 }());
 

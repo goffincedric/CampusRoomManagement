@@ -3,8 +3,7 @@ import {Observable, of} from 'rxjs';
 import {Room} from '../../utils/Room';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {map} from 'rxjs/operators';
-import {FloorFirebaseService} from './floor-firebase.service';
-import {CampusFirebaseService} from './campus-firebase.service';
+import {RoomType} from '../../utils/RoomType';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,7 @@ export class RoomFirebaseService {
       this.allRooms = of(actions.map(action => {
         const data = action.payload.doc.data() as Room;
         data.id = action.payload.doc.id;
-        return data;
+        return data as Room;
       }));
     });
   }
@@ -34,9 +33,7 @@ export class RoomFirebaseService {
       .snapshotChanges()
       .pipe(
         map(actions => actions.map(action => {
-          const data = action.payload.doc.data() as Room;
-          data.id = action.payload.doc.id;
-          return data;
+          return this.mapDataToRoom(action.payload.doc.data(), action.payload.doc.id);
         })));
   }
 
@@ -48,7 +45,7 @@ export class RoomFirebaseService {
           .map(action => {
             const data = action.payload.doc.data() as Room;
             data.id = action.payload.doc.id;
-            return data;
+            return data as Room;
           })
           .filter(room => room.id === roomId)[0]
         ));
@@ -90,5 +87,33 @@ export class RoomFirebaseService {
 
   updateRoomCrowdedness(roomId: string, crowdedness: number): Promise<void> {
     return this.roomsCollection.doc<Room>(roomId).update({crowdedness: crowdedness});
+  }
+
+  mapDataToRoom(object, id: string): Room {
+    const data = object as Room;
+    data.id = id;
+
+    switch (data.type) {
+      case RoomType.AUDITORIUM:
+        data.icon_class = 'account-group';
+        break;
+      case RoomType.CAFETARIA:
+        data.icon_class = 'coffee';
+        break;
+      case RoomType.CLASSROOM:
+        data.icon_class = 'chair-school';
+        break;
+      case RoomType.MEETING_ROOM:
+        data.icon_class = 'clipboard-text';
+        break;
+      case RoomType.OFFICE:
+        data.icon_class = 'desktop-tower-monitor';
+        break;
+      case RoomType.STUDY_HALL:
+        data.icon_class = 'book-open-page-variant';
+        break;
+    }
+
+    return data as Room;
   }
 }

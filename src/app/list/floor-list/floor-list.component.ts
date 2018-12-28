@@ -51,7 +51,10 @@ export class FloorListComponent implements OnInit, OnDestroy {
           this.floors = floors;
           this.floorNumbers = this.floors.map(floor => floor.floorNumber);
           this.currentFloor = this.floors.filter(floor => floor.floorNumber === floorNumber)[0];
-          this.roomSubscription = this.roomService.getRoomsByFloor(this.currentFloor.id).subscribe(rooms => this.currentRooms = rooms);
+          this.roomSubscription = this.roomService.getRoomsByFloor(this.currentFloor.id).subscribe(rooms => {
+            this.currentRooms = rooms;
+            this.currentRooms.sort();
+          });
         });
       });
     });

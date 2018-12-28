@@ -21,10 +21,6 @@ export class RoomDetailComponent implements OnInit {
   campus: Campus = new Campus('', 'Campus', '');
   floor: Floor = new Floor('', 0, '');
 
-  get diagnostic() {
-    return JSON.stringify(this.room);
-  }
-
   constructor(
     private roomService: RoomFirebaseService,
     private floorService: FloorFirebaseService,
@@ -39,7 +35,6 @@ export class RoomDetailComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.roomService.getRoom(params.get('id')))
     ).subscribe(room => {
-      this.room = room;
       this.floorService.getFloor(room.floorId).subscribe(floor => {
           this.floor = floor;
           this.campusService.getCampus(floor.campusId).subscribe(campus => this.campus = campus);

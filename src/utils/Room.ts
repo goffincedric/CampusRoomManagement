@@ -17,6 +17,8 @@ export class Room {
   public height: number;
   public floorId: string;
 
+  public icon_class: String;
+
   constructor(
     id: string,
     name: string,
@@ -46,16 +48,5 @@ export class Room {
     this.width = width;
     this.height = height;
     this.floorId = floorId;
-  }
-
-  get icon_class(): string {
-    switch (this.type) {
-      case RoomType.AUDITORIUM: return 'account-group';
-      case RoomType.CAFETARIA: return 'coffee';
-      case RoomType.CLASSROOM: return 'chair-school';
-      case RoomType.MEETING_ROOM: return 'clipboard-text';
-      case RoomType.OFFICE: return 'desktop-tower-monitor';
-      case RoomType.STUDY_HALL: return 'book-open-page-variant';
-    }
   }
 }

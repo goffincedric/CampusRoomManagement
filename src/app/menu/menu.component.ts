@@ -98,13 +98,8 @@ export class MenuComponent implements OnInit {
   }
 
   onChangePersonnel(event) {
-    console.log(event);
-    console.log(this.isPersonnel );
     this.isPersonnel = event;
-    console.log(this.isPersonnel);
-    console.log(JSON.parse(localStorage.getItem('isPersonnel')));
     localStorage.setItem('isPersonnel', `${this.isPersonnel}`);
-    console.log(JSON.parse(localStorage.getItem('isPersonnel')));
     this.changePersonnel.emit(this.isPersonnel);
     this.showsAll = this.checkShowHideAll();
   }
