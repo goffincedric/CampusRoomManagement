@@ -263,13 +263,16 @@ input::-moz-focus-outer {
         margin: 0.4em 0;
       }
 
-      .room-detail-info > i {
-        padding-left: 0.4em;
+      .room-detail-info {
+        width: 100%;
+        display: block;
+
+        > i {
+          padding-left: 0.4em;
+        }
       }
 
       .capacity {
-        width: 100%;
-        display: block;
       }
     }
 

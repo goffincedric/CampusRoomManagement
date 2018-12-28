@@ -186,11 +186,11 @@ input::-moz-focus-outer {
       flex-wrap: wrap; }
       .room-container .room-inner-container .room-facilities > div {
         margin: 0.4em 0; }
-      .room-container .room-inner-container .room-facilities .room-detail-info > i {
-        padding-left: 0.4em; }
-      .room-container .room-inner-container .room-facilities .capacity {
+      .room-container .room-inner-container .room-facilities .room-detail-info {
         width: 100%;
         display: block; }
+        .room-container .room-inner-container .room-facilities .room-detail-info > i {
+          padding-left: 0.4em; }
     .room-container .room-inner-container .room-controls {
       margin: 0.4em 0;
       padding: 0; }

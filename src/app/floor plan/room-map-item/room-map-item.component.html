@@ -16,12 +16,11 @@
         in {{countdownString}}</p>
     </section>
     <section *ngIf="showsRoomType || showsRoomCapacity || (room.hasBeamer && showsRoomBeamer)" class="room-facilities">
-      <div>Facilities:</div>
       <div *ngIf="showsRoomType" class="room-detail-info">
-        <i class="mdi mdi-{{room.icon_class}}"></i>
+        <div>Type: <i class="mdi mdi-{{room.icon_class}}"></i></div>
       </div>
       <div *ngIf="room.hasBeamer && showsRoomBeamer" class="room-detail-info">
-        <div><i class="mdi mdi-projector"></i></div>
+        <div>Facilities: <i class="mdi mdi-projector"></i></div>
       </div>
       <div *ngIf="showsRoomCapacity" class="room-detail-info capacity">
         Capacity: {{room.capacity}}
