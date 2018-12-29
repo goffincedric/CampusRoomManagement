@@ -33,8 +33,11 @@ export class RoomDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.roomService.getRoom(params.get('id')))
+      switchMap((params: ParamMap) => {
+        return this.roomService.getRoom(params.get('id'));
+      })
     ).subscribe(room => {
+      this.room = room;
       this.floorService.getFloor(room.floorId).subscribe(floor => {
           this.floor = floor;
           this.campusService.getCampus(floor.campusId).subscribe(campus => this.campus = campus);
