@@ -132,7 +132,7 @@ export class RoomListItemComponent implements OnInit {
   }
 
   viewDetails() {
-    this.router.navigate(['/room/detail/' + this.room.id]);
+    this.router.navigate(['/list/room/detail/' + this.room.id]);
   }
 
   onRoomClick() {

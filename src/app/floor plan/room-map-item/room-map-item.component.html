@@ -5,15 +5,18 @@
       <div *ngIf="showsRoomName" class="room-name">{{room.name}}
         <div *ngIf="room.additionalName.length > 0" class="room-additional-name"> - {{room.additionalName}}</div>
       </div>
-      <div *ngIf="hasCrowdedness && showsRoomStatus" class="room-status"
-           [style.background-color]="getColorForPercentage(1 / room.capacity * room.crowdedness)">
-        <p>Crowdedness: {{room.crowdedness}}</p>
+      <div class="room-status-container">
+        <div *ngIf="hasCrowdedness && showsRoomStatus" class="room-status"
+             [style.background-color]="getColorForPercentage(1 / room.capacity * room.crowdedness)">
+          <p>Crowdedness: {{room.crowdedness}}</p>
+        </div>
+        <div *ngIf="hasOccupied && showsRoomStatus" class="room-status {{room.occupied?'room-occupied':'room-free'}}">
+          <p>{{(room.occupied) ? "Occupied" : "Available"}}</p>
+        </div>
+        <p class="countdown" [style.visibility]="(hasOccupied && room.occupied && showsRoomStatus)?'shown': 'hidden'">
+          Available
+          in {{countdownString}}</p>
       </div>
-      <div *ngIf="hasOccupied && showsRoomStatus" class="room-status {{room.occupied?'room-occupied':'room-free'}}">
-        <p>{{(room.occupied) ? "Occupied" : "Available"}}</p>
-      </div>
-      <p class="countdown" [style.visibility]="(hasOccupied && room.occupied && showsRoomStatus)?'shown': 'hidden'">Available
-        in {{countdownString}}</p>
     </section>
     <section *ngIf="showsRoomType || showsRoomCapacity || (room.hasBeamer && showsRoomBeamer)" class="room-facilities">
       <div *ngIf="showsRoomType" class="room-detail-info">

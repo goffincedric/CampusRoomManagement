@@ -15,9 +15,9 @@ import {Room} from '../../../utils/Room';
   styleUrls: ['./floor-map.component.scss']
 })
 export class FloorMapComponent implements OnInit, OnDestroy {
-  private campusSubscription: Subscription;
-  private floorSubscription: Subscription;
-  private roomSubscription: Subscription;
+  private campusSubscription: Subscription = new Subscription();
+  private floorSubscription: Subscription = new Subscription();
+  private roomSubscription: Subscription = new Subscription();
 
   campuses: Campus[] = [];
   floors: Floor[] = [];
@@ -47,6 +47,8 @@ export class FloorMapComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.onFloorMapResize();
+
     this.route.paramMap.pipe(switchMap((params: ParamMap) => this.campusService.getCampusBySlug(params.get('slug')))).subscribe(campus => {
       this.currentCampus = campus[0];
       this.floorSubscription = this.floorService.getFloorsByCampus(this.currentCampus.id).subscribe(floors => {
@@ -107,7 +109,7 @@ export class FloorMapComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:resize', ['$event'])
-  onFloorMapResize(event) {
+  onFloorMapResize() {
     if (window.innerWidth < 768) {
       this.route.url.subscribe(segments => {
         let newUrl = '/';

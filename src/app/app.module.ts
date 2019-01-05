@@ -27,7 +27,7 @@ const appRoutes = [
   {path: 'map/campus/:slug', redirectTo: 'map/campus/:slug/floor/0', pathMatch: 'full'},
   {path: 'map/campus/:slug/floor', redirectTo: 'map/campus/:slug/floor/0', pathMatch: 'full'},
   {path: 'map/campus/:slug/floor/:floorNumber', component: FloorMapComponent},
-  {path: 'room/detail/:id', component: RoomDetailComponent},
+  {path: ':redirectToType/room/detail/:id', component: RoomDetailComponent},
   {path: '', redirectTo: '/list/campus/groenplaats/floor/0', pathMatch: 'full'},
   {path: '**', component: FloorListComponent} // Veranderen naar error component
 ];

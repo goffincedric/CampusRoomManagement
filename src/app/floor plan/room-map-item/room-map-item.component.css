@@ -145,8 +145,10 @@ input::-moz-focus-outer {
       display: flex;
       font-size: 1.2rem; }
     .room-container .room-inner-container .room-details {
-      display: inline-block;
-      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
       word-break: break-all; }
       .room-container .room-inner-container .room-details .room-name {
         letter-spacing: 2px;
@@ -157,13 +159,8 @@ input::-moz-focus-outer {
         letter-spacing: 2px;
         font-weight: bolder;
         text-transform: uppercase; }
-      .room-container .room-inner-container .room-details .room-status {
+      .room-container .room-inner-container .room-details .room-status-container .room-status {
         padding: .3em 1.3em;
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: auto;
-        justify-self: right;
         line-height: 1.4em;
         font-weight: bold;
         font-size: 1.2rem;
@@ -171,15 +168,15 @@ input::-moz-focus-outer {
         text-transform: uppercase;
         letter-spacing: 3px;
         color: #fff; }
-        .room-container .room-inner-container .room-details .room-status p {
+        .room-container .room-inner-container .room-details .room-status-container .room-status p {
           margin: auto;
           word-break: unset;
           text-align: center; }
-      .room-container .room-inner-container .room-details .room-free {
+      .room-container .room-inner-container .room-details .room-status-container .room-free {
         background-color: limegreen; }
-      .room-container .room-inner-container .room-details .room-occupied {
+      .room-container .room-inner-container .room-details .room-status-container .room-occupied {
         background-color: orangered; }
-      .room-container .room-inner-container .room-details .countdown {
+      .room-container .room-inner-container .room-details .room-status-container .countdown {
         width: auto;
         float: right; }
     .room-container .room-inner-container .room-facilities {

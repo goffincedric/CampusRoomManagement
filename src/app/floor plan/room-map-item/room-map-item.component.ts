@@ -131,7 +131,7 @@ export class RoomMapItemComponent implements OnInit {
   }
 
   viewDetails() {
-    this.router.navigate(['/room/detail/' + this.room.id]);
+    this.router.navigate(['/map/room/detail/' + this.room.id]);
   }
 
   onRoomClick() {

@@ -200,8 +200,10 @@ input::-moz-focus-outer {
     }
 
     .room-details {
-      display: inline-block;
-      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
       word-break: break-all;
 
       .room-name {
@@ -217,42 +219,37 @@ input::-moz-focus-outer {
         text-transform: uppercase;
       }
 
-      .room-status {
-        padding: .3em 1.3em;
-
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: auto;
-
-        justify-self: right;
-        line-height: 1.4em;
-        font-weight: bold;
-        font-size: 1.2rem;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        color: #fff;
-
-        p {
-          margin: auto;
-
-          word-break: unset;
+      .room-status-container {
+        .room-status {
+          padding: .3em 1.3em;
+          line-height: 1.4em;
+          font-weight: bold;
+          font-size: 1.2rem;
           text-align: center;
+          text-transform: uppercase;
+          letter-spacing: 3px;
+          color: #fff;
+
+          p {
+            margin: auto;
+
+            word-break: unset;
+            text-align: center;
+          }
         }
-      }
 
-      .room-free {
-        background-color: limegreen;
-      }
+        .room-free {
+          background-color: limegreen;
+        }
 
-      .room-occupied {
-        background-color: orangered;
-      }
+        .room-occupied {
+          background-color: orangered;
+        }
 
-      .countdown {
-        width: auto;
-        float: right;
+        .countdown {
+          width: auto;
+          float: right;
+        }
       }
     }
 

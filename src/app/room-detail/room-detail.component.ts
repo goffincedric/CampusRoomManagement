@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RoomFirebaseService} from '../services/room-firebase.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {switchMap} from 'rxjs/operators';
+import {switchMap, tap} from 'rxjs/operators';
 import {Room} from '../../utils/Room';
 import {FloorFirebaseService} from '../services/floor-firebase.service';
 import {CampusFirebaseService} from '../services/campus-firebase.service';
@@ -20,6 +20,7 @@ export class RoomDetailComponent implements OnInit {
   roomTypes = Object.keys(RoomType).map(roomType => RoomType[roomType] as string).sort();
   campus: Campus = new Campus('', 'Campus', '');
   floor: Floor = new Floor('', 0, '');
+  redirectToViewType = 'list';
 
   constructor(
     private roomService: RoomFirebaseService,
@@ -33,6 +34,11 @@ export class RoomDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.pipe(
+      tap((params: ParamMap) => {
+        if (params.has('redirectToType')) {
+          this.redirectToViewType = params.get('redirectToType');
+        }
+      }),
       switchMap((params: ParamMap) => {
         return this.roomService.getRoom(params.get('id'));
       })
@@ -56,6 +62,8 @@ export class RoomDetailComponent implements OnInit {
 
   saveRoom() {
     this.roomService.updateRoom(this.room)
-      .then(() => this.router.navigate(['/list/campus/' + this.campus.slugUrl + '/floor/' + this.floor.floorNumber]));
+      .then(() => {
+        this.router.navigate([`/${this.redirectToViewType}/campus/${this.campus.slugUrl}/floor/${this.floor.floorNumber}`]);
+      });
   }
 }
