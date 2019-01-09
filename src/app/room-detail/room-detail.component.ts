@@ -63,7 +63,7 @@ export class RoomDetailComponent implements OnInit {
   saveRoom() {
     this.roomService.updateRoom(this.room)
       .then(() => {
-        this.router.navigate([`/${this.redirectToViewType}/campus/${this.campus.slugUrl}/floor/${this.floor.floorNumber}`]);
+        this.router.navigate([`/${this.redirectToViewType}/${this.campus.slugUrl}/${this.floor.floorNumber}`]);
       });
   }
 }

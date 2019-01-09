@@ -8,7 +8,7 @@
       </label>
       <div class='child-menu'>
         <a *ngFor="let campus of campuses;"
-          [routerLink]="'/list/campus/' + campus.slugUrl + '/floor/0'">{{campus.name}}</a>
+          [routerLink]="'/list/' + campus.slugUrl + '/0'">{{campus.name}}</a>
       </div>
     </div>
     <div>

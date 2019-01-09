@@ -1,20 +1,20 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
-import {CampusFirebaseService} from '../../services/campus-firebase.service';
-import {FloorFirebaseService} from '../../services/floor-firebase.service';
-import {RoomFirebaseService} from '../../services/room-firebase.service';
+import {of, Subject, Subscription} from 'rxjs';
+import {Campus} from '../../utils/Campus';
+import {Floor} from '../../utils/Floor';
+import {Room} from '../../utils/Room';
+import {CampusFirebaseService} from '../services/campus-firebase.service';
+import {FloorFirebaseService} from '../services/floor-firebase.service';
+import {RoomFirebaseService} from '../services/room-firebase.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
-import {of, Subject, Subscription} from 'rxjs';
-import {Campus} from '../../../utils/Campus';
-import {Floor} from '../../../utils/Floor';
-import {Room} from '../../../utils/Room';
 
 @Component({
-  selector: 'app-floor-map',
-  templateUrl: './floor-map.component.html',
-  styleUrls: ['./floor-map.component.scss']
+  selector: 'app-floor-layout',
+  templateUrl: './floor-layout.component.html',
+  styleUrls: ['./floor-layout.component.scss']
 })
-export class FloorMapComponent implements OnInit, OnDestroy {
+export class FloorLayoutComponent implements OnInit, OnDestroy {
   private campusSubscription: Subscription = new Subscription();
   private floorSubscription: Subscription = new Subscription();
   private roomSubscription: Subscription = new Subscription();
@@ -26,8 +26,6 @@ export class FloorMapComponent implements OnInit, OnDestroy {
   currentCampus: Campus = new Campus('', '', '');
   currentFloor: Floor = new Floor('', 0, '');
 
-  colStyle = '1fr';
-
   isPersonnel = false;
   showsRoomName = true;
   showsRoomStatus = true;
@@ -36,6 +34,10 @@ export class FloorMapComponent implements OnInit, OnDestroy {
   showsRoomBeamer = false;
 
   showsDetails = new Subject<boolean>();
+
+  colStyle = '1fr';
+
+  isListLayout = true;
 
   constructor(
     private campusService: CampusFirebaseService,
@@ -49,7 +51,34 @@ export class FloorMapComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.onFloorMapResize();
 
-    this.route.paramMap.pipe(switchMap((params: ParamMap) => this.campusService.getCampusBySlug(params.get('slug')))).subscribe(campus => {
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => {
+        if (params.has('layoutType')) {
+          switch (params.get('layoutType').toLowerCase()) {
+            case 'list':
+              this.isListLayout = true;
+              break;
+            case 'map':
+              this.isListLayout = false;
+              break;
+            default:
+              let newUrl = '/';
+              this.route.url.forEach(segments => {
+                segments.forEach(segment => {
+                  if (segments.indexOf(segment) > 0) {
+                    newUrl += segment.path + '/';
+                  } else {
+                    newUrl += 'list/';
+                  }
+                });
+              });
+              this.router.navigate([newUrl]);
+              break;
+          }
+        }
+        return this.campusService.getCampusBySlug(params.get('slug'));
+      })
+    ).subscribe(campus => {
       this.currentCampus = campus[0];
       this.floorSubscription = this.floorService.getFloorsByCampus(this.currentCampus.id).subscribe(floors => {
         this.route.paramMap.pipe(switchMap((params: ParamMap) => of(+params.get('floorNumber')))).subscribe(floorNumber => {
@@ -58,6 +87,7 @@ export class FloorMapComponent implements OnInit, OnDestroy {
           this.currentFloor = this.floors.filter(floor => floor.floorNumber === floorNumber)[0];
           this.roomSubscription = this.roomService.getRoomsByFloor(this.currentFloor.id).subscribe(rooms => {
             this.currentRooms = rooms;
+            this.currentRooms.sort();
             const colAmount = Math.max(...rooms.map(room => room.x + room.width - 1));
             let colStyleText = '';
             for (let i = 0; i < colAmount; i++) {
@@ -111,8 +141,8 @@ export class FloorMapComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   onFloorMapResize() {
     if (window.innerWidth < 768) {
-      this.route.url.subscribe(segments => {
-        let newUrl = '/';
+      let newUrl = '/';
+      this.route.url.forEach(segments => {
         segments.forEach(segment => {
           if (segment.path.toLowerCase() === 'map') {
             newUrl += 'list/';
@@ -120,8 +150,9 @@ export class FloorMapComponent implements OnInit, OnDestroy {
             newUrl += segment.path.toLowerCase() + '/';
           }
         });
-        this.router.navigate([newUrl]);
       });
+      this.router.navigate([newUrl]);
     }
   }
+
 }

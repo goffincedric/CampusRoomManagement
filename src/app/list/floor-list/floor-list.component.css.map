@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,KAAM;EACJ,KAAK,EAAE,IAAI;;AAGb,MAAO;EACL,KAAK,EAAE,IAAI;EAEX,gBAAgB,EAAE,OAAO;;AAG3B,QAAS;EACP,OAAO,EAAE,KAAK;EAEd,KAAK,EAAE,IAAI;EAEX,mBAAW;IACT,KAAK,EAAE,IAAI;;AAIf,yBAA0B;EACxB,QAAS;IACP,OAAO,EAAE,WAAW;IACpB,cAAc,EAAE,GAAG",
-"sources": ["floor-list.component.scss"],
-"names": [],
-"file": "floor-list.component.css"
-}
