@@ -17,7 +17,8 @@
     (showRoomCapacity)="changeRoomCapacity($event)"
     (showRoomBeamer)="changeRoomBeamer($event)"
   ></app-menu>
-  <section class="room-list" *ngIf="isListLayout">
+  <h3 *ngIf="currentRooms.length === 0" class="no-rooms">No rooms available...</h3>
+  <section *ngIf="isListLayout && currentRooms.length > 0" class="room-list">
     <app-room-list-item
       *ngFor="let room of currentRooms"
       [room]="room"
@@ -31,7 +32,7 @@
       (hideOtherRoomClicks)="hideOtherRoomClicks()"
     ></app-room-list-item>
   </section>
-  <section class="room-grid" *ngIf="!isListLayout" [style.grid-template-columns]="colStyle">
+  <section *ngIf="!isListLayout && currentRooms.length > 0" class="room-grid" [style.grid-template-columns]="colStyle">
     <app-room-map-item
       *ngFor="let room of currentRooms"
       [style.grid-column-start]="room.x"

@@ -1,0 +1,53 @@
+:host {
+  width: 100%;
+}
+
+header {
+  width: 100%;
+
+  background-color: #393939;
+}
+
+.content {
+  display: block;
+
+  width: 100%;
+
+  .home-content {
+    width: 100%;
+
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 5%;
+
+    .home-title{
+      min-width: 10%;
+
+      text-align: center;
+
+      &:after {
+        content: "";
+
+        display: block;
+
+        margin-top: 10px;
+
+        border-bottom: 3px solid #393939;
+      }
+
+    }
+
+    .home-desc {
+      margin: 20px auto;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .content {
+    display: inline-flex;
+    flex-direction: row;
+  }
+}

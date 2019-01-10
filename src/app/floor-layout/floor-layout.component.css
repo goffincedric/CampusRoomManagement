@@ -10,6 +10,10 @@ header {
   width: 100%;
   /* Map max height */
   min-height: 100vh; }
+  .content .no-rooms {
+    width: 100%;
+    margin-top: 5%;
+    text-align: center; }
   .content .room-list {
     width: 100%; }
   .content .room-grid {

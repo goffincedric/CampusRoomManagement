@@ -1,5 +1,9 @@
 <div class='brand-container'>
-  <a [routerLink]="['/list/' + this.currentCampus.slugUrl + '/0']">
+  <a *ngIf="isNormalHeader" [routerLink]="['/']">
+    <span class='brand-initials'>Home</span>
+    <span class='brand-name'>Examenproject UI3 2018</span>
+  </a>
+  <a *ngIf="!isNormalHeader" [routerLink]="['/list/' + this.currentCampus.slugUrl + '/0']">
     <span class='brand-initials'>{{currentCampus.name}}</span>
     <span class='brand-name'>Examenproject UI3 2018</span>
   </a>

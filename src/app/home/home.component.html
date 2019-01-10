@@ -1,0 +1,21 @@
+<header>
+  <app-campus-header
+    [isNormalHeader]="true"
+  ></app-campus-header>
+</header>
+<section class="content">
+  <app-menu
+    [campuses]="campuses"
+    [hideSettings]="true"
+  ></app-menu>
+  <section class="home-content">
+    <h2 class="home-title">Campuses</h2>
+    <p class="about-desc">
+      Click on a campus to navigate to it.
+    </p>
+    <app-campus-item
+      *ngFor="let campus of campuses"
+      [campus]="campus"
+    ></app-campus-item>
+  </section>
+</section>

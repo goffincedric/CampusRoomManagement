@@ -14,14 +14,18 @@ import {MenuComponent} from './menu/menu.component';
 import {RoomListItemComponent} from './floor-layout/room-list-item/room-list-item.component';
 import {RoomMapItemComponent} from './floor-layout/room-map-item/room-map-item.component';
 import {FloorLayoutComponent} from './floor-layout/floor-layout.component';
+import {AboutComponent} from './about/about.component';
+import {HomeComponent} from './home/home.component';
+import {CampusItemComponent} from './home/campus-item/campus-item.component';
 
 const appRoutes = [
+  {path: 'about', component: AboutComponent, pathMatch: 'full'},
   {path: ':layoutType', redirectTo: ':layoutType/groenplaats/0', pathMatch: 'full'},
   {path: ':layoutType/:slug', redirectTo: ':layoutType/:slug/0', pathMatch: 'full'},
   {path: ':layoutType/:slug/:floorNumber', component: FloorLayoutComponent},
   {path: ':redirectToType/room/detail/:id', component: RoomDetailComponent},
-  {path: '', redirectTo: '/list/groenplaats/0', pathMatch: 'full'},
-  {path: '**', component: FloorLayoutComponent} // Veranderen naar error component
+  {path: '', component: HomeComponent},
+  {path: '**', component: HomeComponent} // Veranderen naar error component
 ];
 
 @NgModule({
@@ -32,7 +36,10 @@ const appRoutes = [
     MenuComponent,
     RoomListItemComponent,
     RoomMapItemComponent,
-    FloorLayoutComponent
+    FloorLayoutComponent,
+    AboutComponent,
+    HomeComponent,
+    CampusItemComponent
   ],
   imports: [
     BrowserModule,

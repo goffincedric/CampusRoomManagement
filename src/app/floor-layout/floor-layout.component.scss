@@ -15,6 +15,14 @@ header {
   /* Map max height */
   min-height: 100vh;
 
+  .no-rooms {
+    width: 100%;
+
+    margin-top: 5%;
+
+    text-align: center;
+  }
+
   .room-list {
     width: 100%;
   }

@@ -14,8 +14,8 @@
           <p>{{(room.occupied) ? "Occupied" : "Available"}}</p>
         </div>
         <p class="countdown" [style.visibility]="(hasOccupied && room.occupied && showsRoomStatus)?'shown': 'hidden'">
-          Available
-          in {{countdownString}}</p>
+          Available in {{countdownString}}
+        </p>
       </div>
     </section>
     <section *ngIf="showsRoomType || showsRoomCapacity || (room.hasBeamer && showsRoomBeamer)" class="room-facilities">

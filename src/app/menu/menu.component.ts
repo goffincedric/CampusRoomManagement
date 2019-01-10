@@ -10,11 +10,11 @@ import {of, Subject} from 'rxjs';
 })
 export class MenuComponent implements OnInit {
   @Input()
-  campuses: Campus[];
+  campuses: Campus[] = [];
   @Input()
   currentCampus: Campus;
   @Input()
-  currentFloors: Floor[];
+  currentFloors: Floor[] = [];
   @Input()
   currentFloorNumbers: number[];
   @Input()
