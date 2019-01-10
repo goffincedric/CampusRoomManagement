@@ -23,7 +23,7 @@ export class FloorLayoutComponent implements OnInit, OnDestroy {
   floors: Floor[] = [];
   floorNumbers: number[] = [];
   currentRooms: Room[] = [];
-  currentCampus: Campus = new Campus('', '', '');
+  currentCampus: Campus = new Campus('', '', '', '');
   currentFloor: Floor = new Floor('', 0, '');
 
   isPersonnel = false;

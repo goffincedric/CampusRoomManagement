@@ -8,7 +8,7 @@ import {Campus} from '../../utils/Campus';
 })
 export class CampusHeaderComponent implements OnInit {
   @Input()
-  currentCampus: Campus = new Campus('', 'Campus', '');
+  currentCampus: Campus = new Campus('', 'Campus', '', '');
   @Input()
   isNormalHeader = false;
 
