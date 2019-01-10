@@ -1,7 +1,8 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {Campus} from '../../utils/Campus';
 import {Floor} from '../../utils/Floor';
-import {of, Subject} from 'rxjs';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {switchMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -38,27 +39,42 @@ export class MenuComponent implements OnInit {
   showsRoomBeamer = false;
   screenWidth = window.innerWidth;
 
-  constructor() {
+  layout = 'list';
+
+  constructor(
+    private route: ActivatedRoute
+  ) {
   }
 
   ngOnInit() {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      if (params.has('layoutType')) {
+        switch (params.get('layoutType').toLowerCase()) {
+          case 'list':
+          case 'map':
+            this.layout = params.get('layoutType');
+            break;
+        }
+      }
+    });
+
     if (localStorage.getItem('isPersonnel') !== null) {
-      this.onChangePersonnel(JSON.parse(localStorage.getItem('isPersonnel'))) ;
+      this.onChangePersonnel(JSON.parse(localStorage.getItem('isPersonnel')));
     }
     if (localStorage.getItem('showsRoomName') !== null) {
-      this.onShowRoomName(JSON.parse(localStorage.getItem('showsRoomName'))) ;
+      this.onShowRoomName(JSON.parse(localStorage.getItem('showsRoomName')));
     }
     if (localStorage.getItem('showsRoomStatus') !== null) {
-      this.onShowRoomStatus(JSON.parse(localStorage.getItem('showsRoomStatus'))) ;
+      this.onShowRoomStatus(JSON.parse(localStorage.getItem('showsRoomStatus')));
     }
     if (localStorage.getItem('showsRoomType') !== null) {
-      this.onShowRoomType(JSON.parse(localStorage.getItem('showsRoomType'))) ;
+      this.onShowRoomType(JSON.parse(localStorage.getItem('showsRoomType')));
     }
     if (localStorage.getItem('showsRoomCapacity') !== null) {
-      this.onShowRoomCapacity(JSON.parse(localStorage.getItem('showsRoomCapacity'))) ;
+      this.onShowRoomCapacity(JSON.parse(localStorage.getItem('showsRoomCapacity')));
     }
     if (localStorage.getItem('showsRoomBeamer') !== null) {
-      this.onShowRoomBeamer(JSON.parse(localStorage.getItem('showsRoomBeamer'))) ;
+      this.onShowRoomBeamer(JSON.parse(localStorage.getItem('showsRoomBeamer')));
     }
   }
 

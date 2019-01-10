@@ -31,7 +31,7 @@
       </label>
       <div class='child-menu'>
         <a *ngFor="let campus of campuses;"
-          [routerLink]="'/list/' + campus.slugUrl + '/0'">{{campus.name}}</a>
+          [routerLink]="'/' + layout + '/' + campus.slugUrl + '/0'">{{campus.name}}</a>
       </div>
     </div>
     <div *ngIf="currentFloors.length > 0">
