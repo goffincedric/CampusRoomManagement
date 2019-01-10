@@ -396,40 +396,40 @@ header {
   }
 
   .col-half {
-    padding-right: 10px;
+    padding-right: 0;
+    width: 100%;
     float: left;
-    width: 50%;
-
-    &:last-of-type {
-      padding-right: 0;
-    }
   }
 
   .col-third {
     padding-right: 10px;
-    float: left;
     width: 33.33333333%;
-
-    &:last-of-type {
-      padding-right: 0;
-    }
+    float: left;
   }
 
   .col-fourth {
     padding-right: 10px;
+    width: 50%;
     float: left;
-    width: 25%;
-
-    &:last-of-type {
-      padding-right: 0;
-    }
   }
 
-  @media only screen and (max-width: 540px) {
+  @media (min-width: 768px) {
     .col-half {
-      width: 100%;
-      padding-right: 0;
+      padding-right: 10px;
+      width: 50%;
+
+      &:last-of-type {
+        padding-right: 0;
+      }
+    }
+
+    .col-fourth {
+      width: 25%;
+      padding-right: 10px;
+
+      &:last-of-type {
+        padding-right: 0;
+      }
     }
   }
-
 }

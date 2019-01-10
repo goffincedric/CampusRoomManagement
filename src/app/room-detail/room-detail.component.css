@@ -270,26 +270,27 @@ header {
     .content .row:after {
       clear: both; }
   .content .col-half {
-    padding-right: 10px;
-    float: left;
-    width: 50%; }
-    .content .col-half:last-of-type {
-      padding-right: 0; }
+    padding-right: 0;
+    width: 100%;
+    float: left; }
   .content .col-third {
     padding-right: 10px;
-    float: left;
-    width: 33.33333333%; }
-    .content .col-third:last-of-type {
-      padding-right: 0; }
+    width: 33.33333333%;
+    float: left; }
   .content .col-fourth {
     padding-right: 10px;
-    float: left;
-    width: 25%; }
-    .content .col-fourth:last-of-type {
-      padding-right: 0; }
-  @media only screen and (max-width: 540px) {
+    width: 50%;
+    float: left; }
+  @media (min-width: 768px) {
     .content .col-half {
-      width: 100%;
-      padding-right: 0; } }
+      padding-right: 10px;
+      width: 50%; }
+      .content .col-half:last-of-type {
+        padding-right: 0; }
+    .content .col-fourth {
+      width: 25%;
+      padding-right: 10px; }
+      .content .col-fourth:last-of-type {
+        padding-right: 0; } }
 
 /*# sourceMappingURL=room-detail.component.css.map */
