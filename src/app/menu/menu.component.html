@@ -19,8 +19,8 @@
         <span class='name'>Layout</span>
       </label>
       <div class='child-menu'>
-        <a [routerLink]="['/list']">List</a>
-        <a *ngIf="screenWidth > 768" [routerLink]="['/map']">Floorplan</a>
+        <a [routerLink]="['/list/' + currentCampus.slugUrl + '/' + currentFloorNumber]">List</a>
+        <a *ngIf="screenWidth > 768" [routerLink]="['/map/' + currentCampus.slugUrl + '/' + currentFloorNumber]">Floorplan</a>
       </div>
     </div>
     <div>

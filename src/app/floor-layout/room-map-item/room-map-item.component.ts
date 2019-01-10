@@ -65,6 +65,7 @@ export class RoomMapItemComponent implements OnInit {
       case RoomType.MEETING_ROOM:
       case RoomType.OFFICE:
         this.hasOccupied = true;
+        break;
     }
 
     this.reservedUntil = new Date(this.room.reservedUntil);

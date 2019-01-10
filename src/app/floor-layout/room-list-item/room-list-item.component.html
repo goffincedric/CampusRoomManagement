@@ -37,13 +37,13 @@
       <div *ngIf="hasOccupied && !room.occupied" class="room-reservation">
         <label for="reservation-hours-dropdown">Reserve for: </label>
         <span class="custom-dropdown">
-        <select id="reservation-hours-dropdown" [(ngModel)]="hoursSelected">
-          <option value="0" selected>Select duration...</option>
-          <option value="1">1 hour</option>
-          <option value="2">2 hours</option>
-          <option value="3">3 hours</option>
-        </select>
-      </span>
+          <select id="reservation-hours-dropdown" [(ngModel)]="hoursSelected">
+            <option value="0" selected>Select duration...</option>
+            <option value="1">1 hour</option>
+            <option value="2">2 hours</option>
+            <option value="3">3 hours</option>
+          </select>
+        </span>
         <div class="button" (click)="onReserve()">Reserve now</div>
       </div>
     </section>
