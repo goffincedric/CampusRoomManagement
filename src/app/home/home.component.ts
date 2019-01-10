@@ -19,10 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.campusSubscription = this.campusService.getCampuses().subscribe(campuses => {
-      console.log(campuses);
-      this.campuses = campuses;
-    });
+    this.campusSubscription = this.campusService.getCampuses().subscribe(campuses => this.campuses = campuses);
   }
 
   ngOnDestroy(): void {
